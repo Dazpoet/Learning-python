@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 #These are solutions to 6.8.3-6.8.4
 #Creating a list with ingredients for köttfärsssås
 
