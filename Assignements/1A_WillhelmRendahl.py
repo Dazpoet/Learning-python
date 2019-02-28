@@ -101,6 +101,8 @@ Med detta smarta program behöver du aldrig igen oroa dig över hur man konverte
             else:
                 print("Du måste ange 1, 2 eller 3 för att komma vidare\n")
         except ValueError:
-            print("""Du måste ange en siffra: helst 1, 2 eller 3 men kanske finns det ett fjärde alternativ?\nMan kan aldrig vara riktigt hundra...\n""")    
+            print("""Du måste ange en siffra: helst 1, 2 eller 3 men kanske finns det ett fjärde alternativ?\nMan kan aldrig vara riktigt hundra...\n""")
+        except:
+            critical_error()
 
 main()
