@@ -51,4 +51,4 @@ def calculate_sideLenght (countSides):
     sideLenght = (2*areaSize)/(countSides*apothemLenght)
     return sideLenght
 
-main()
+main()6
