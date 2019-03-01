@@ -81,7 +81,7 @@ def main(): #Open a menu and call relevant functions depending on the choice mad
     
     menu = True
     
-    print("""Välkommen till Willes enhetskonverterare!\n\n\
+    print("""\nVälkommen till Willes enhetskonverterare!\n\n\
 Med detta smarta program behöver du aldrig igen oroa dig över hur man konverterar mellan km/h och m/s eftersom programmet gör det åt dig.\n""")
     
     while menu:
