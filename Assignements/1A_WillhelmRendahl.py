@@ -10,13 +10,13 @@
 
 import time
 
-speed_of_light_mps = 299792458 #Speed of light in metres per second. We want to warn anyone who moves faster than this
+vac_speed_of_light_mps = 299792458 #Speed of light in metres per second. We want to warn anyone who moves faster than this
 
 def convert_kmph_to_mps(): #Asks for user input and then converts kilometres per hour to metres per second
     try:
         kmph = float(input("Hur många km/h vill du konvertera till m/s? "))
         mps = round(kmph / 3.6, 2) #Converts and rounds to 2 decimals
-        if mps > speed_of_light_mps:
+        if mps > vac_speed_of_light_mps:
             warp_speed(mps)
             print("\nMed den varningen sagd så är " + str(kmph) + " km/h samma sak som " + str(mps) + " m/s.\n")
         else:
@@ -30,7 +30,7 @@ def convert_mps_to_kmph(): #Asks for user input and then converts metres per sec
     try:
         mps = float(input("Hur många m/s vill du konvertera till km/h? "))
         kmph = round(mps * 3.6, 2) #Converts and rounds to 2 decimals
-        if mps > speed_of_light_mps:
+        if mps > vac_speed_of_light_mps:
             warp_speed(mps)
             print("\nMed den varningen sagd så är " + str(mps) + " m/s samma sak som " + str(kmph) + " km/h.\n")
         else:
@@ -41,7 +41,7 @@ def convert_mps_to_kmph(): #Asks for user input and then converts metres per sec
         critical_error()
 
 def warp_speed(mps): #We call this when people move faster than light
-    diff = round(mps - speed_of_light_mps, 2)
+    diff = round(mps - vac_speed_of_light_mps, 2)
     print("\nFörhoppningsvis är hastigheten du matade in inte en del av en större beräkning?\n\
 Din hastighet är " + str(diff) + " m/s högre än ljusets hastighet i vakuum och så fort kan inget känt föremål röra sig.\n\
 Om du har gjort korrekta beräkningar och/eller stött på något som rör sig så här fort rekommenderar jag att du kontaktar ESA")
