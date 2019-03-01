@@ -10,7 +10,7 @@
 
 import time
 
-speed_of_light_mps = 299792458 #We want warn anyone who moves faster than this
+speed_of_light_mps = 299792458 #We want to warn anyone who moves faster than this
 
 def convert_kmph_to_mps(): #Asks for user input and then converts kilometres per hour to metres per second
     try:
