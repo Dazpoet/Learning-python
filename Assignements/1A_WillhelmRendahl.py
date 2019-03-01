@@ -10,7 +10,7 @@
 
 import time
 
-speed_of_light_mps = 299792458 #We want to warn anyone who moves faster than this
+speed_of_light_mps = 299792458 #Speed of light in metres per second. We want to warn anyone who moves faster than this
 
 def convert_kmph_to_mps(): #Asks for user input and then converts kilometres per hour to metres per second
     try:
@@ -41,7 +41,7 @@ def convert_mps_to_kmph(): #Asks for user input and then converts metres per sec
         critical_error()
 
 def warp_speed(mps): #We call this when people move faster than light
-    diff = mps - speed_of_light_mps
+    diff = round(mps - speed_of_light_mps, 2)
     print("\nFörhoppningsvis är hastigheten du matade in inte en del av en större beräkning?\n\
 Din hastighet är " + str(diff) + " m/s högre än ljusets hastighet i vakuum och så fort kan inget känt föremål röra sig.\n\
 Om du har gjort korrekta beräkningar och/eller stött på något som rör sig så här fort rekommenderar jag att du kontaktar ESA")
