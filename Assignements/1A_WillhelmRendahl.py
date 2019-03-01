@@ -15,29 +15,29 @@ speed_of_light_mps = 299792458 #We want to warn anyone who moves faster than thi
 def convert_kmph_to_mps(): #Asks for user input and then converts kilometres per hour to metres per second
     try:
         kmph = float(input("Hur många km/h vill du konvertera till m/s? "))
-        mps = round(kmph / 3.6, 2)
+        mps = round(kmph / 3.6, 2) #Converts and rounds to 2 decimals
         if mps > speed_of_light_mps:
             warp_speed(mps)
             print("\nMed den varningen sagd så är " + str(kmph) + " km/h samma sak som " + str(mps) + " m/s.\n")
         else:
             print("\n" + str(kmph) + " km/h är samma sak som " + str(mps) + " m/s.\n")
-    except ValueError:
+    except ValueError: #Catch when an incorrectly formatted value is written or when letters are used
         print("Du måste ange en hastighet med hjälp av siffor, kom ihåg att använda dig av \".\" som skiljetecken.\n")
-    except:
+    except: #Quit gracefully when unforseen exceptions are thrown and inform the user on how to report them
         critical_error()
 
 def convert_mps_to_kmph(): #Asks for user input and then converts metres per second to kilometres per hour
     try:
         mps = float(input("Hur många m/s vill du konvertera till km/h? "))
-        kmph = round(mps * 3.6, 2)
+        kmph = round(mps * 3.6, 2) #Converts and rounds to 2 decimals
         if mps > speed_of_light_mps:
             warp_speed(mps)
             print("\nMed den varningen sagd så är " + str(mps) + " m/s samma sak som " + str(kmph) + " km/h.\n")
         else:
             print("\n" + str(mps) + " m/s är samma sak som " + str(kmph) + " km/h.\n")
-    except ValueError:
+    except ValueError: #Catch when an incorrectly formatted value is written or when letters are used
         print("Du måste ange en hastighet med hjälp av siffor, kom ihåg att använda dig av \".\" som skiljetecken.\n")
-    except:
+    except: #Quit gracefully when unforseen exceptions are thrown and inform the user on how to report them
         critical_error()
 
 def warp_speed(mps): #We call this when people move faster than light
@@ -50,8 +50,8 @@ def critical_error(): #We call this when an unknown exception is thrown
     print("""Någonting gick väldigt fel. Om felet är möjligt att reproducera vänligen skapa ett ärende på följande sida:\n https://github.com/Dazpoet/Learning-python/issues""")
     print("Programmet avslutas om: ")
     
-    counter = 3
-    while counter > 0:
+    counter = 5
+    while counter > 0: #Give the user a few seconds to consider the error before quitting, prevents window from closing prematurely
         print(counter)
         time.sleep(1)
         counter -= 1
