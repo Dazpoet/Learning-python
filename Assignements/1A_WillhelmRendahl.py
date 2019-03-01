@@ -78,8 +78,9 @@ https://github.com/Dazpoet/Learning-python/issues and it will be removed with du
 """)
 
 def main(): #Open a menu and call relevant functions depending on the choice made
+    
     menu = True
-
+    
     print("""Välkommen till Willes enhetskonverterare!\n\n\
 Med detta smarta program behöver du aldrig igen oroa dig över hur man konverterar mellan km/h och m/s eftersom programmet gör det åt dig.\n""")
     
@@ -95,7 +96,7 @@ Med detta smarta program behöver du aldrig igen oroa dig över hur man konverte
             elif answer == 2:
                 convert_mps_to_kmph()
             elif answer == 3:
-                break
+                menu = False
             elif answer == 99:
                 easter_egg()
             else:
