@@ -18,7 +18,7 @@ def convert_kmph_to_mps(): #Asks for user input and then converts kilometres per
         mps = round(kmph / 3.6, 2) #Converts and rounds to 2 decimals
         if mps > vac_speed_of_light_mps:
             warp_speed(mps)
-            print("\nMed den varningen sagd så är " + str(kmph) + " km/h samma sak som " + str(mps) + " m/s.\n")
+            print("\nMed det sagt så är " + str(kmph) + " km/h samma sak som " + str(mps) + " m/s.\n")
         else:
             print("\n" + str(kmph) + " km/h är samma sak som " + str(mps) + " m/s.\n")
     except ValueError: #Catch when an incorrectly formatted value is written or when letters are used
@@ -32,7 +32,7 @@ def convert_mps_to_kmph(): #Asks for user input and then converts metres per sec
         kmph = round(mps * 3.6, 2) #Converts and rounds to 2 decimals
         if mps > vac_speed_of_light_mps:
             warp_speed(mps)
-            print("\nMed den varningen sagd så är " + str(mps) + " m/s samma sak som " + str(kmph) + " km/h.\n")
+            print("\nMed det sagt så är " + str(mps) + " m/s samma sak som " + str(kmph) + " km/h.\n")
         else:
             print("\n" + str(mps) + " m/s är samma sak som " + str(kmph) + " km/h.\n")
     except ValueError: #Catch when an incorrectly formatted value is written or when letters are used
