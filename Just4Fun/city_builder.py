@@ -14,6 +14,8 @@
 #TODO: I would like each district to have a post office, a police station and a health care facility but no more than one of each
 #TODO: catch exceptions
 #TODO: Add easter egg, maybe based on city_name?
+#TODO: Add a map/representation of the districts
+#TODO: Make the districts somehow clickable or similar to show streets and houses
 
 import random
 import time
