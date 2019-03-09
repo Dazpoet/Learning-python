@@ -8,17 +8,18 @@
 #What I want
 #A streetbuilder that constructs each street with random houses
 #A district builder that constructs districts with multiple streets
-#TODO: I would like each district to have a post office, a police station and a health care facility but no more than one of each
 #A city to have 5 districts with user chosen names
 #A city plan to printed as the end-product
 #The user to choose a city name
+#TODO: I would like each district to have a post office, a police station and a health care facility but no more than one of each
+#TODO: 
 
 import random
 import time
 
 def house_builder(): #This will choose a random house and print what kind it is. In the real implementation this would construct a house
     normal_house_types = ['Red house', 'Blue House', 'Yellow House', 'Purple House', 'Pink House' ]
-    index = random.randint(0,4)
+    index = random.randint(0,(len(normal_house_types) - 1))
     print(normal_house_types[index])
 
 def street_builder(street): #This will construct a street
@@ -57,7 +58,8 @@ def main(): #This is our citybuilder and will mostly be a bunch of loops which e
     print()
 
     for district in district_names:
-        print("Constructing " + str(district))
+        print("Constructing " + str(district) + " in city " + str(city_name))
+        print()
         print(str(district))
         district_builder(district)
         time.sleep(2)
