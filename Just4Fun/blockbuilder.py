@@ -8,27 +8,35 @@
 #What I want
 #A streetbuilder that constructs each street with random houses
 #A district builder that constructs districts with multiple streets
-#I would like each district to have a post office, a police station and a health care facility but no more than one of each
+#TODO: I would like each district to have a post office, a police station and a health care facility but no more than one of each
 #A city to have 5 districts with user chosen names
 #A city plan to printed as the end-product
 #The user to choose a city name
 
 import random
+import time
 
-house_types = ['Red house', 'Blue House', 'Yellow House', 'Purple House', 'Pink House' ]
-special_house_types = ['Police Station', 'Health Care', 'Post Office']
+def house_builder(): #This will choose a random house and print what kind it is. In the real implementation this would construct a house
+    normal_house_types = ['Red house', 'Blue House', 'Yellow House', 'Purple House', 'Pink House' ]
+    index = random.randint(0,4)
+    print(normal_house_types[index])
 
-def housebuilder(): #This will choose a random house and print what kind it is. In the real implementation this would construct a house
-    pass
+def street_builder(street): #This will construct a street
+    number_of_houses = 5
+    while not number_of_houses == 0:
+        house_builder()
+        number_of_houses -= 1
 
-def streetbuilder(): #This will construct a street
-    pass
+    print()
 
-def districtbuilder(): #This will construct a district and contain logic for the special houses
-    pass
+def district_builder(district): #This will construct a district
 
-def city_plan(): #This will print the finished city plan
-    pass
+    street_names = ['1st St', '2nd St', '3rd St', '4th St', '5th St']
+
+    for street in street_names:
+        print(str(street) + " contains the following houses: ")
+        street_builder(street)
+        time.sleep(2)
 
 def main(): #This is our citybuilder and will mostly be a bunch of loops which ends with a printing of the cityplan
     city_name = input("What would you like to call your city?: ")
@@ -41,9 +49,19 @@ def main(): #This is our citybuilder and will mostly be a bunch of loops which e
         district_names.append(district_name)
         print("Good choice! I'm sure that " + str(district_name) + " will be a fine district to live in.")
     
-    print("Your districts are:")
+    print("Your City " + str(city_name) + " will have the districts:")
     while not number_of_districts == -1:
         print(district_names[number_of_districts - 1])
         number_of_districts -= 1
+    time.sleep(2)
+    print()
+
+    for district in district_names:
+        print("Constructing " + str(district))
+        print(str(district))
+        district_builder(district)
+        time.sleep(2)
+        print()
+
 
 main()
