@@ -12,7 +12,7 @@
 #A city plan to printed as the end-product
 #The user to choose a city name
 #TODO: I would like each district to have a post office, a police station and a health care facility but no more than one of each
-#TODO: 
+#TODO: catch exceptions
 
 import random
 import time
@@ -43,22 +43,26 @@ def main(): #This is our citybuilder and will mostly be a bunch of loops which e
     city_name = input("What would you like to call your city?: ")
     
     district_names = []
-    number_of_districts = 5
+    try:
+        number_of_districts = int(input("How many districts would you like your city to have? "))
+    except ValueError:
+        print("Your number must be an integer")
+        quit()
 
-    while len(district_names) < number_of_districts:
+    while len(district_names) < number_of_districts: #We name our districts TODO: Provide a nice counter with how many we have done/have left to do
         district_name = input("Name one of your districts: ")
         district_names.append(district_name)
         print("Good choice! I'm sure that " + str(district_name) + " will be a fine district to live in.")
     
     print("Your City " + str(city_name) + " will have the districts:")
-    while not number_of_districts == -1:
+    while not number_of_districts == 0:
         print(district_names[number_of_districts - 1])
         number_of_districts -= 1
     time.sleep(2)
     print()
 
     for district in district_names:
-        print("Constructing " + str(district) + " in city " + str(city_name))
+        print("Constructing the district " + str(district) + " in city " + str(city_name))
         print()
         print(str(district))
         district_builder(district)
