@@ -13,6 +13,7 @@
 #The user to choose a city name
 #TODO: I would like each district to have a post office, a police station and a health care facility but no more than one of each
 #TODO: catch exceptions
+#TODO: Add easter egg, maybe based on city_name?
 
 import random
 import time
