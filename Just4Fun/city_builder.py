@@ -61,7 +61,7 @@ def main(): #This is our citybuilder and will mostly be a bunch of loops which e
     print()
 
     for district in district_names:
-        print("Constructing the district " + str(district) + " in city " + str(city_name))
+        print("Constructing the district " + str(district) + " in the city of " + str(city_name))
         print()
         print(str(district))
         district_builder(district)
