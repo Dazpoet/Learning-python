@@ -23,15 +23,14 @@ def house_builder(): #This will choose a random house and print what kind it is.
     print(normal_house_types[index])
 
 def street_builder(street): #This will construct a street
-    number_of_houses = 5
+    number_of_houses = 5 #TODO: Consider if we want the user to be able to choose this for each street, it sounds tedious. Ask the user if they want to do it?
     while not number_of_houses == 0:
         house_builder()
         number_of_houses -= 1
 
     print()
 
-def district_builder(district): #This will construct a district
-
+def district_builder(district): #This will construct a district TODO: Give the user the ability to choose to go with the default version below or name their own streets
     street_names = ['1st St', '2nd St', '3rd St', '4th St', '5th St']
 
     for street in street_names:
@@ -47,7 +46,7 @@ def main(): #This is our citybuilder and will mostly be a bunch of loops which e
         number_of_districts = int(input("How many districts would you like your city to have? "))
     except ValueError:
         print("Your number must be an integer")
-        quit()
+        quit() #We do this to avoid an UnboundLocalError further down when we need this variable set to an int TODO: Figure out how to reprompt the user for an int
 
     while len(district_names) < number_of_districts: #We name our districts TODO: Provide a nice counter with how many we have done/have left to do
         district_name = input("Name one of your districts: ")
