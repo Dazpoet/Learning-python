@@ -5,7 +5,7 @@ def dividera(c, d):
         kvot = c/d
         return str(c) + '/' + str(d) + '=' + str(kvot)
     except ZeroDivisionError:
-        return "FEEBLE BEING Y U DIVIDE BY NOTHING?!"
+        return "FEEBLE BEING Y U DIVIDE BY NOTHING?!" #This will be put into f when a ZeroDivisionError is thrown
 
 def user_input():
     while True:
