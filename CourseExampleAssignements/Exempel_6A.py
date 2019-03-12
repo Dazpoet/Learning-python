@@ -14,7 +14,7 @@ def user_input():
             divisor = int(input("Gief divisor!: "))
             return dividera(dividend, divisor)
         except ValueError:
-            print("Y U NO INT?!")
+            print("Y U NO INT?!") #Don't mix print and return unless there's a good reason for it
 
 def main():
    f = user_input()

@@ -78,12 +78,10 @@ https://github.com/Dazpoet/Learning-python/issues and it will be removed with du
 """)
 
 def main(): #Open a menu and call relevant functions depending on the choice made
-    
-    menu = True
-    
     print("""\nVälkommen till Willes enhetskonverterare!\n\n\
 Med detta smarta program behöver du aldrig igen oroa dig över hur man konverterar mellan km/h och m/s eftersom programmet gör det åt dig.\n""")
     
+    menu = True
     while menu:
         try:
             answer = int(input("""Vad vill du göra?
