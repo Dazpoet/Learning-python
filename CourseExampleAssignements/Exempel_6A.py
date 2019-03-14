@@ -3,7 +3,7 @@
 def dividera(c, d):
     try:
         kvot = c/d
-        return str(c) + '/' + str(d) + '=' + str(kvot)
+        return str(c) + '/' + str(d) + '=' + str(kvot) #This will be put into f when a proper division is performed
     except ZeroDivisionError:
         return "FEEBLE BEING Y U DIVIDE BY NOTHING?!" #This will be put into f when a ZeroDivisionError is thrown
 
