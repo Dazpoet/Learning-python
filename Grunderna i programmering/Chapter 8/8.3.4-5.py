@@ -14,6 +14,7 @@
 
 import pickle
 import time
+import os
 
 def welcome_text():
     print("Welcome to DAZ, Daz Accountmanagement Zone.\nIn this program you can keep track of your expenditures and savings.")
@@ -28,10 +29,19 @@ def add_account(account_dict): #Is called to add another account
     value = float(input("How much money do you have in that account?: "))
     account_dict[name] = value
     print("You have added the account", name, "with the initial sum", value)
+    
     return account_dict
 
 def remove_account(account_dict):
-    pass
+    print("These are your current accounts:")
+    for i in account_dict.keys():
+        print(i)
+
+    name = input("Which account would you like to remove? ")
+    del account_dict[name]
+    print("Removed account", name)
+    
+    return account_dict
 
 def withdraw_from_account(account_dict): #Let's the user withdraw from an account
     print("These are your current accounts:")
