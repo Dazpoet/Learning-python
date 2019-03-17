@@ -20,19 +20,37 @@ def account_status (account_dict):
 
 def add_account(account_dict):
     name = input("What would you like the name of your account to be?: ")
-    value = input("How much money do you have in that account?: ")
+    value = float(input("How much money do you have in that account?: "))
     account_dict[name] = value
-    print("You have added the account ", name, " with the initial sum ", value)
+    print("You have added the account", name, "with the initial sum", value)
     return account_dict
 
 def remove_account(account_dict):
     pass
 
 def withdraw_from_account(account_dict):
-    pass
+    print("These are your current accounts:")
+    for i in account_dict.keys():
+        print(i)
+
+    name = input("Which account would you like to withdraw from? ")
+    value = float(input("How much would you like to withdraw? "))
+    account_dict[name] -= value
+    print("You withdrew", value, "from account", name)
+
+    return account_dict
 
 def add_to_account(account_dict):
-    pass
+    print("These are your current accounts:")
+    for i in account_dict.keys():
+        print(i)
+
+    name = input("Which account would you like to add to? ")
+    value = float(input("How much would you like to add? "))
+    account_dict[name] += value
+    print("You added", value, "to account", name)
+
+    return account_dict
 
 def user_choices():
     try:
@@ -66,9 +84,14 @@ def main():
         #Perform the requested operation
         if choice == 1:
             account_status(accounts)
+        elif choice == 2:
+            accounts = add_to_account(accounts)
+        elif choice == 3:
+            accounts = withdraw_from_account(accounts)
         elif choice == 4:
             accounts = add_account(accounts)
         elif choice == 6:
+            pickle.dump(accounts,open('accounts.p','wb'))
             quit()
         else:
             print("\nYou must choose one of the options 1 through 6.")
