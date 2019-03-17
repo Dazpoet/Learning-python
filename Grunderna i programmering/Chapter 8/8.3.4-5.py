@@ -107,7 +107,11 @@ def main():
         elif choice == 5:
             accounts = remove_account(accounts)
         elif choice == 6:
-            pickle.dump(accounts,open('accounts.p','wb'))
+            #Check if the user has any accounts, if so save them, if not make sure they will be treated as a new user on the next startup
+            if len(accounts) < 1 and os.path.isfile(accounts.p):
+                os.remove(accounts.p)
+            else:
+                pickle.dump(accounts,open('accounts.p','wb'))
             quit()
         else:
             print("\nYou must choose one of the options 1 through 6.")
