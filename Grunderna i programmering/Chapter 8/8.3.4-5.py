@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 
 #Assignement
-#Make a program that keeps track of 3 different bank accounts based on user input
+#Make a program that keep track of bank accounts based on user input
 #The account balances must be saved between sessions
-    #Use pickle for file handling
+    #Use pickle to save the data between sessions
 #Use try-except to catch potential errors
 #TODO: I would like each account to have an index for easy selection rather than having to print the entire name for each operation
     #Could this be done putting each account as it's own dictionary corresponding to an index key in the primary dictionary?
