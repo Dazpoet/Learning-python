@@ -11,6 +11,7 @@
     #Something like ['1':['Accountname':'Sum']]
     #Could the index number be generated using something like len(dict.keys()+1) maybe to abstract it away from the user?
     #Need to figure out how to work on a dict inside a dict
+#TODO: Add easter eggs, maybe based on account name?
 
 import pickle
 import time
