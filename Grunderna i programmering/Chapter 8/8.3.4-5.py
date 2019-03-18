@@ -107,7 +107,8 @@ def main():
         elif choice == 5:
             accounts = remove_account(accounts)
         elif choice == 6:
-            #Check if the user has any accounts, if so save them, if not make sure they will be treated as a new user on the next startup
+            #Check if the user has any accounts, if so save them, if not make sure to treat next start as a first time
+            #TODO: See if this could be done by having a TRUE/FALSE switch saved in a file instead to avoid OS specific problems
             if len(accounts) < 1 and os.path.isfile(accounts.p):
                 os.remove(accounts.p)
             else:
