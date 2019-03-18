@@ -1,11 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-#Assignement
-#Make a program that keep track of bank accounts based on user input
-#The account balances must be saved between sessions
-    #Use pickle to save the data between sessions
-#Use try-except to catch potential errors
 #TODO: I would like each account to have an index for easy selection rather than having to print the entire name for each operation
     #Could this be done putting each account as it's own dictionary corresponding to an index key in the primary dictionary?
     #Something like ['1':['Accountname':'Sum']]
@@ -48,7 +43,7 @@ def print_accounts(account_dict):
     for i in account_dict.keys():
         print(i)
 
-def add_account(account_dict): #Is called to add another account
+def add_account(account_dict): #Is called to add another account, also checks if easter egg should be triggered
     try:
         name = input("What would you like the name of your new account to be?: ")
         if name == "daZ_poet":
@@ -63,7 +58,7 @@ def add_account(account_dict): #Is called to add another account
     
     return account_dict
 
-def remove_account(account_dict):
+def remove_account(account_dict): #Removes an account
     print_accounts(account_dict)
     try:
         name = input("Which account would you like to remove? ")
