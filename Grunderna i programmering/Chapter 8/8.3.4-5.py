@@ -30,7 +30,6 @@ def print_accounts(account_dict):
     for i in account_dict.keys():
         print(i)
 
-
 def add_account(account_dict): #Is called to add another account
     name = input("What would you like the name of your new account to be?: ")
     value = float(input("How much money do you have in that account?: "))
