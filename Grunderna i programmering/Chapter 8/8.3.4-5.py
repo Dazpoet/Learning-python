@@ -25,8 +25,14 @@ def account_status (account_dict): #Prints the accountname and amount of money i
         print(i, j)
         time.sleep(1)
 
+def print_accounts(account_dict):
+    print("These are your current accounts:")
+    for i in account_dict.keys():
+        print(i)
+
+
 def add_account(account_dict): #Is called to add another account
-    name = input("What would you like the name of your account to be?: ")
+    name = input("What would you like the name of your new account to be?: ")
     value = float(input("How much money do you have in that account?: "))
     account_dict[name] = value
     print("You have added the account", name, "with the initial sum", value)
@@ -34,9 +40,7 @@ def add_account(account_dict): #Is called to add another account
     return account_dict
 
 def remove_account(account_dict):
-    print("These are your current accounts:")
-    for i in account_dict.keys():
-        print(i)
+    print_accounts(account_dict)
 
     name = input("Which account would you like to remove? ")
     del account_dict[name]
@@ -45,9 +49,7 @@ def remove_account(account_dict):
     return account_dict
 
 def withdraw_from_account(account_dict): #Let's the user withdraw from an account
-    print("These are your current accounts:")
-    for i in account_dict.keys():
-        print(i)
+    print_accounts(account_dict)
 
     name = input("Which account would you like to withdraw from? ")
     value = float(input("How much would you like to withdraw? "))
@@ -57,9 +59,7 @@ def withdraw_from_account(account_dict): #Let's the user withdraw from an accoun
     return account_dict
 
 def add_to_account(account_dict): #Let's the user add to an account
-    print("These are your current accounts:")
-    for i in account_dict.keys():
-        print(i)
+    print_accounts(account_dict)
 
     name = input("Which account would you like to add to? ")
     value = float(input("How much would you like to add? "))
