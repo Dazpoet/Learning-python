@@ -20,7 +20,7 @@ def welcome_text(isfirst): #We call on this to welcome the user, if its their fi
     else:
         print("\nVälj hur du vill spela ur menyn.")
 
-def number_game(first_number,last_number, best_score): #This is the actual game, we call this and supply the range we want to randomize between
+def number_game(first_number,last_number): #This is the actual game, we call this and supply the range we want to randomize between
     CORRECT_ANSWER = random.randint(first_number,last_number) #Lastnumber must be e.g. 101 when the user selects 100, fix that in input
     guess_counter = 0
 
@@ -44,14 +44,14 @@ def number_game(first_number,last_number, best_score): #This is the actual game,
 
 def main_menu():
     counter = 0
-        try:
-            choice = int(input(""))
-        except ValueError:
-            counter += 1
-            if counter =< 5:
-                print("Du måste ange ett existerande alternativ, det finns inga överraskningar här" + "."*(counter+1))
-            elif counter > 5 and counter =< 10:
-                for i in range(0,counter-5):
+    try:
+        choice = int(input(""))
+    except ValueError:
+        counter += 1
+        if counter <= 5:
+            print("Du måste ange ett existerande alternativ, det finns inga överraskningar här" + "."*(counter+1))
+        elif counter > 5 and counter <= 10:
+            for i in range(0,counter-5):
                     print("Ge dig, det finns inget här, du ödslar bara tid")
             else:
                 print("Ok, ok... du får en ledtråd -> DET FINNS INGET HÄR!")
