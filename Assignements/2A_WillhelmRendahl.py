@@ -27,7 +27,8 @@ def user_input(): #We break this into its own function as to not bloat main with
         stop = int(input("Vilken siffra vill du att ditt spann ska sluta på?: "))+1 #Add 1 to the user input so we're not off by one in the games randomint call
         
         if start > stop:
-            print("Startvärdet måste vara mindre än stoppvärdet")
+            print("Startvärdet måste vara mindre än stoppvärdet. Starta om och försök igen")
+            quit()
         else:
             values.append(start)
             values.append(stop)
@@ -79,7 +80,7 @@ def save_game(savefile): #This is its own function since it's called on twice an
 def main_menu():
     counter = 0
     try:
-        choice = int(input("Vad vill du göra?"
+        choice = int(input("\nVad vill du göra?"
         "\n1. Spela standardspelet"
         "\n2. Spela men med mitt egenvalda spann"
         "\n3. Veta hur snabbt jag vunnit som snabbast"
@@ -99,6 +100,11 @@ def main_menu():
 def compare_to_highscore(old_hs, new_score): #Does some logic, congratulates if higher, asks to try harder if lower, returns new best score
     if old_hs < new_score:
         print("Tyvärr slog du inte ditt gamla rekord på", old_hs, "gissningar. Bättre lycka nästa gång!")
+        return old_hs
+    elif new_score == 1:
+        print("Eftersom det nu är omöjligt att slå ditt rekord av", new_score, "gissning så rekommenderar jag att du nollställer räknaren och utmanar dig själv med svårare spann")
+    elif old_hs == new_score:
+        print("Du tangerade ditt gamla rekord", old_hs, "gissningar. Försök igen för att se om du kan slå det också.")
         return old_hs
     else:
         print("Grattis! Du har slagit ditt gamla rekord", old_hs, "gissningar, med dina",new_score, "gissningar. Det är", old_hs - new_score, "färre gissningar. Försök igen och se om du kan slå det!")
