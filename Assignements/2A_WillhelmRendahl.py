@@ -26,7 +26,7 @@ def user_input(): #We break this into its own function as to not bloat main with
         values.append(int(input("Vilken siffra vill du att ditt spann ska börja på?: ")))
         values.append(int(input("Vilken siffra vill du att ditt spann ska sluta på?: ")+1)) #Add 1 to the user input so we're not off by one in the games randomint call
     except ValueError:
-        print("Du måste ange heltal, annars blir spelet onödigt svårt")
+        print("Du måste ange heltal, annars fungerar inte spelet")
     
     return values
 
