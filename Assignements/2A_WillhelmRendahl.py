@@ -23,12 +23,19 @@ def welcome_text(isfirst): #We call on this to welcome the user, if its their fi
 def user_input(): #We break this into its own function as to not bloat main with exception-catching
     values = []
     try:
-        values.append(int(input("Vilken siffra vill du att ditt spann ska börja på?: ")))
-        values.append(int(input("Vilken siffra vill du att ditt spann ska sluta på?: ")+1)) #Add 1 to the user input so we're not off by one in the games randomint call
+        start = int(input("Vilken siffra vill du att ditt spann ska börja på?: "))
+        stop = int(input("Vilken siffra vill du att ditt spann ska sluta på?: "))+1 #Add 1 to the user input so we're not off by one in the games randomint call
+        
+        if start > stop:
+            print("Startvärdet måste vara mindre än stoppvärdet")
+        else:
+            values.append(start)
+            values.append(stop)
+        
+        return values
     except ValueError:
-        print("Du måste ange heltal, annars fungerar inte spelet")
-    
-    return values
+        print("Du måste ange heltal, annars fungerar inte spelet.")
+        quit()
 
 def number_game(first_number,last_number): #This is the actual game, we call this and supply the range we want to randomize between
     CORRECT_ANSWER = random.randint(first_number,last_number)
@@ -90,11 +97,11 @@ def main_menu():
                 print("Ok, ok... du får en ledtråd -> DET FINNS INGET HÄR!")
 
 def compare_to_highscore(old_hs, new_score): #Does some logic, congratulates if higher, asks to try harder if lower, returns new best score
-    if old_hs > new_score:
+    if old_hs < new_score:
         print("Tyvärr slog du inte ditt gamla rekord på", old_hs, "gissningar. Bättre lycka nästa gång!")
         return old_hs
     else:
-        print("Grattis! Du har slagit ditt gamla rekord", old_hs, "med dina",new_score, "gissningar. Det är", new_score - old_hs, "färre gissningar. Försök igen och se om du kan slå det!")
+        print("Grattis! Du har slagit ditt gamla rekord", old_hs, "gissningar, med dina",new_score, "gissningar. Det är", old_hs - new_score, "färre gissningar. Försök igen och se om du kan slå det!")
         return new_score
 
 def main():
@@ -107,6 +114,7 @@ def main():
         score = number_game(1,101)
         print("Du har nu klarat standardspelet, nästa gång du kör programmet kommer du kunna göra mer.")
         DATA_STORE['FIRST_TIME'] = False
+        DATA_STORE['HIGH_SCORE'] = score
         save_game(DATA_STORE)        
         quit()
     else: #Users with saved data get access to the menu
