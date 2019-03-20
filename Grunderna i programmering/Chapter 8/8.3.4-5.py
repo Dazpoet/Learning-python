@@ -54,7 +54,7 @@ def add_account(account_dict): #Is called to add another account, also checks if
         account_dict[name] = value
         print("You have added the account", name, "with the initial sum", value)
     except ValueError:
-        print("Your values must be proper numbers using \".\" as the delimiter")
+        print("Your values must be proper numbers using \".\" as delimiter")
     
     return account_dict
 
