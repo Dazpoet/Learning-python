@@ -10,6 +10,7 @@
 
 import pickle
 import random
+import sys
 
 def welcome_text(isfirst): #We call on this to welcome the user, if its their first time we inform them about progression
     print("Välkommen till spelet 'Gissa mitt tal'"
@@ -23,21 +24,22 @@ def welcome_text(isfirst): #We call on this to welcome the user, if its their fi
 
 def user_input(): #We break this into its own function as to not bloat main with exception-catching
     values = []
-    try:
-        start = int(input("Vilken siffra vill du att ditt spann ska börja på?: "))
-        stop = int(input("Vilken siffra vill du att ditt spann ska sluta på?: "))+1 #Add 1 to the user input so we're not off by one in the games randomint call
+    while True:
+        try:
+            start = int(input("Vilken siffra vill du att ditt spann ska börja på?: "))
+            stop = int(input("Vilken siffra vill du att ditt spann ska sluta på?: "))+1 #Add 1 to the user input so we're not off by one in the games randomint call
         
-        if start > stop:
-            print("Startvärdet måste vara mindre än stoppvärdet. Starta om och försök igen")
-            quit()
-        else:
-            values.append(start)
-            values.append(stop)
-        
-        return values
-    except ValueError:
-        print("Du måste ange heltal, annars fungerar inte spelet.")
-        quit()
+            if start > stop:
+                print("Startvärdet måste vara mindre än stoppvärdet. Starta om och försök igen")
+
+            else:
+                values.append(start)
+                values.append(stop)
+                return values
+        except ValueError:
+            print("Du måste ange heltal, annars fungerar inte spelet.")
+        except (EOFError, KeyboardInterrupt):
+            sys.exit("\nAvslutar programmet")
 
 def number_game(first_number,last_number): #This is the actual game, we call this and supply the range we want to randomize between
     CORRECT_ANSWER = random.randint(first_number,last_number)
@@ -60,6 +62,8 @@ def number_game(first_number,last_number): #This is the actual game, we call thi
                     return guess_counter
         except ValueError:
             print("Du måste ange heltal")
+        except (EOFError, KeyboardInterrupt):
+            sys.exit("\nAvslutar programmet")
 
 def open_data_store(): #Check if there is any saved data and if so, return it, else return what we expect for a first time user
     try:
@@ -70,7 +74,7 @@ def open_data_store(): #Check if there is any saved data and if so, return it, e
         return savefile
     except PermissionError:
         print("Det går inte att öppna din sparfil, försäkra dig om att du har läsrättigheter i mappen du kör ifrån och försök igen")
-        quit()
+        sys.exit(1)
 
 def save_game(savefile): #This is its own function since it's called on twice and repeat code = bad code
     try:
@@ -97,6 +101,8 @@ def main_menu():
                     print("Ge dig, det finns inget här, du ödslar bara tid")
             else:
                 print("Ok, ok... du får en ledtråd -> DET FINNS INGET HÄR!")
+    except (EOFError, KeyboardInterrupt):
+        sys.exit("\nAvslutar programmet")
 
 def compare_to_highscore(old_hs, new_score): #Does some logic, congratulates if higher, asks to try harder if lower, returns new best score
     if old_hs < new_score:
@@ -112,18 +118,17 @@ def compare_to_highscore(old_hs, new_score): #Does some logic, congratulates if 
         return new_score
 
 def main():
-    #Check if there is a savefile, else create one
     DATA_STORE = open_data_store()
 
     welcome_text(DATA_STORE['FIRST_TIME'])
 
     if DATA_STORE['FIRST_TIME'] == True: #First time users get thrown directly into the game and only get one run
         score = number_game(1,101)
-        print("Du har nu klarat standardspelet, nästa gång du kör programmet kommer du kunna göra mer.")
         DATA_STORE['FIRST_TIME'] = False
         DATA_STORE['HIGH_SCORE'] = score
-        save_game(DATA_STORE)        
-        quit()
+        save_game(DATA_STORE)
+        #Restart to make sure we catch potential erros with the savefile before the user has a lot of progress to lose
+        sys.exit("Du har nu klarat standardspelet, nästa gång du kör programmet kommer du kunna göra mer.")
     else: #Users with saved data get access to the menu
         while True:
             choice = main_menu()
@@ -138,9 +143,9 @@ def main():
                 print("Din snabbaste lösningen var", DATA_STORE['HIGH_SCORE'], "gissningar")
             elif choice == 4:
                 DATA_STORE['HIGH_SCORE'] = 100
-                print("Snabbaste lösning återställd")
+                print("Snabbaste lösning återställd till 100")
             elif choice == 5:
                 save_game(DATA_STORE)
-                quit() 
+                sys.exit(0)
 
 main()
