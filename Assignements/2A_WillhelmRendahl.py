@@ -4,9 +4,7 @@
 #Assignement:
 #Create an implementation of the game "Gissa mitt tal" where the user is
 #tasked with finding a random number between 1-100
-#TODO: Check for errors on Ctrl+D and Ctrl+C duriing user input. Might trigger EOFError and/or KeyboardInterruptError
-#TODO: Change quit() to sys.exit based on https://stackoverflow.com/questions/6501121/difference-between-exit-and-sys-exit-in-python/6501134
-#TODO: Make the errors throw the user back to the input rather than quit the program, while loops in the functions?
+#Use try-except to catch errors
 
 import pickle
 import random
