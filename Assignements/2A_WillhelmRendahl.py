@@ -25,11 +25,10 @@ def user_input(): #We break this into its own function as to not bloat main with
     while True:
         try:
             start = int(input("Vilken siffra vill du att ditt spann ska börja på?: "))
-            stop = int(input("Vilken siffra vill du att ditt spann ska sluta på?: "))+1 #Add 1 to the user input so we're not off by one in the games randomint call
-        
+            stop = int(input("Vilken siffra vill du att ditt spann ska sluta på?: "))
+
             if start > stop:
                 print("Startvärdet måste vara mindre än stoppvärdet. Starta om och försök igen")
-
             else:
                 values.append(start)
                 values.append(stop)
@@ -131,7 +130,7 @@ def main():
         while True:
             choice = main_menu()
             if choice == 1:
-                score = number_game(1,101)
+                score = number_game(1,100)
                 DATA_STORE['HIGH_SCORE'] = compare_to_highscore(DATA_STORE['HIGH_SCORE'], score)
             elif choice == 2:
                 user_range = user_input()
