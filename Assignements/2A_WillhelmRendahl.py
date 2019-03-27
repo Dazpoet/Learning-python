@@ -20,6 +20,25 @@ def welcome_text(isfirst): #We call on this to welcome the user, if its their fi
     else:
         print("\nVälj hur du vill spela ur menyn.")
 
+def easter_egg(): #Easter egg for the initiated
+    print ("\n\nDu hittade den magiska Dazrullen!")
+    print("""              _
+  .--""--.___.._
+ (  <__>  )     `-.
+ |`--..--'|      <|
+ |       :|       /
+ |       :|--""-./
+ `.__  __;' o!O
+     ""     
+
+------------------------------------------------
+This ASCII art was fetched from http://www.ascii-art.de/ascii/t/toiletpaper.txt
+Artist: Ojoshiro
+
+If you are the copyright-holder of this art and would like it removed please open an issue at:
+https://github.com/Dazpoet/Learning-python/issues and it will be removed with due haste.
+""")
+
 def user_input(): #We break this into its own function as to not bloat main with exception-catching
     values = []
     while True:
@@ -81,25 +100,28 @@ def save_game(savefile): #This is its own function since it's called on twice an
 
 def main_menu():
     counter = 0
-    try:
-        choice = int(input("\nVad vill du göra?"
-        "\n1. Spela standardspelet"
-        "\n2. Spela men med mitt egenvalda spann"
-        "\n3. Veta hur snabbt jag vunnit som snabbast"
-        "\n4. Återställa mina snabbaste lösning till standardvärdet (100)"
-        "\n5. Avsluta programmet\n"))
-        return choice
-    except ValueError:
-        counter += 1
-        if counter <= 5:
-            print("Du måste ange ett existerande alternativ, det finns inga överraskningar här" + "."*(counter+1))
-        elif counter > 5 and counter <= 10:
-            for i in range(0,counter-5):
-                    print("Ge dig, det finns inget här, du ödslar bara tid")
-            else:
-                print("Ok, ok... du får en ledtråd -> DET FINNS INGET HÄR!")
-    except (EOFError, KeyboardInterrupt):
-        sys.exit("\nAvslutar programmet")
+    while True: #We add this loop so the counter will work
+        try:
+            choice = int(input("\nVad vill du göra?"
+            "\n1. Spela standardspelet"
+            "\n2. Spela men med mitt egenvalda spann"
+            "\n3. Veta hur snabbt jag vunnit som snabbast"
+            "\n4. Återställa mina snabbaste lösning till standardvärdet (100)"
+            "\n5. Avsluta programmet\n"))
+            return choice
+        except ValueError: #This doesn't work, why?
+            counter += 1
+            if counter <= 5:
+                print("Du måste ange ett existerande alternativ, det finns inga överraskningar här" + "."*(counter+1))
+            elif counter > 5 and counter <= 10:
+                for i in range(0,counter-5):
+                        print("Ge dig, det finns inget här, du ödslar bara tid")
+                else:
+                    print("Ok, ok... du får en ledtråd -> DET FINNS INGET HÄR!")
+            elif counter == 15:
+                easter_egg()
+        except (EOFError, KeyboardInterrupt):
+            sys.exit("\nAvslutar programmet")
 
 def compare_to_highscore(old_hs, new_score): #Does some logic, congratulates if higher, asks to try harder if lower, returns new best score
     if old_hs < new_score:
