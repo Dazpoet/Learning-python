@@ -66,9 +66,15 @@ def number_game(first_number,last_number): #This is the actual game, we call thi
             guess = int(input("\nGissa på ett nummer så ska jag berätta om det är rätt eller ge dig en ledtråd: "))
             guess_counter += 1
             if guess > CORRECT_ANSWER:
-                print("\nTalet jag tänker på är lägre än", guess, "Du har gissat", guess_counter, "gånger")
+                if guess_counter == 1:
+                    print("\nTalet jag tänker på är lägre än", guess, "Du har gissat", guess_counter, "gång")
+                else:
+                    print("\nTalet jag tänker på är lägre än", guess, "Du har gissat", guess_counter, "gånger")
             elif guess < CORRECT_ANSWER:
-                print("\nTalet jag tänker på är högre än", guess, "Du har gissat", guess_counter, "gånger")
+                if guess_counter == 1:
+                    print("\nTalet jag tänker på är högre än", guess, "Du har gissat", guess_counter, "gång")
+                else:
+                    print("\nTalet jag tänker på är högre än", guess, "Du har gissat", guess_counter, "gånger")
             else:
                 if guess_counter == 1:
                     print("\nDu måste ha fuskat! Jag tänkte på", CORRECT_ANSWER, "och du kom på det på första försöket. Är du en tankeläsare?")
@@ -92,7 +98,7 @@ def open_data_store(): #Check if there is any saved data and if so, return it, e
         print("Det går inte att öppna din sparfil, försäkra dig om att du har läsrättigheter i mappen du kör ifrån och försök igen")
         sys.exit(1)
 
-def save_game(savefile): #This is its own function since it's called on twice and repeat code = bad code
+def save_game(savefile): #This is its own function since it's called on twice and repeat code == bad code
     try:
         pickle.dump(savefile,open('data_store.p','wb'))
     except PermissionError:
@@ -109,7 +115,7 @@ def main_menu():
             "\n4. Återställa mina snabbaste lösning till standardvärdet (100)"
             "\n5. Avsluta programmet\n"))
             return choice
-        except ValueError: #This doesn't work, why?
+        except ValueError: #The code below could be put into it's own function but I've chosen not to since I like toying with hiding things in errors
             counter += 1
             if counter <= 5:
                 print("Du måste ange ett existerande alternativ, det finns inga överraskningar här" + "."*(counter+1))
@@ -150,8 +156,8 @@ def main():
         sys.exit("Du har nu klarat standardspelet, nästa gång du kör programmet kommer du kunna göra mer.")
     else: #Users with saved data get access to the menu
         while True:
-            choice = main_menu()
-            if choice == 1:
+            choice = main_menu() #The menu itself is sectioned of into a function
+            if choice == 1: #The following choices are kept in main for better readability
                 score = number_game(1,100)
                 DATA_STORE['HIGH_SCORE'] = compare_to_highscore(DATA_STORE['HIGH_SCORE'], score)
             elif choice == 2:
