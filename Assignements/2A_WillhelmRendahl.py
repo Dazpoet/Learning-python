@@ -172,5 +172,7 @@ def main():
             elif choice == 5:
                 save_game(DATA_STORE)
                 sys.exit(0)
+            else:
+                print("Du måste välja ett värde mellan 1 och 5. Lustigt nog är de siffrorna även relevanta för en helt annan del av programmet...")
 
 main()
