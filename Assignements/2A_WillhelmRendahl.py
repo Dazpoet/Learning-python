@@ -96,7 +96,7 @@ def open_data_store(): #Check if there is any saved data and if so, return it, e
         return savefile
     except PermissionError:
         print("Det går inte att öppna din sparfil, försäkra dig om att du har läsrättigheter i mappen du kör ifrån och försök igen")
-        sys.exit(1)
+        sys.exit(1) #Supposedly this raises an alert of some kind in a system-log, making it better than sys.exit(0) since an exception is thrown
 
 def save_game(savefile): #This is its own function since it's called on twice and repeat code == bad code
     try:
@@ -120,8 +120,8 @@ def main_menu():
             if counter <= 5:
                 print("Du måste ange ett existerande alternativ, det finns inga överraskningar här" + "."*(counter+1))
             elif counter > 5 and counter <= 10:
-                for i in range(0,counter-5):
-                        print("Ge dig, det finns inget här, du ödslar bara tid")
+                if counter > 5 and counter <= 10:
+                        print("\nGe dig, det finns inget här, du ödslar bara tid" * (counter - 5))
                 else:
                     print("Ok, ok... du får en ledtråd -> DET FINNS INGET HÄR!")
             elif counter == 15:
