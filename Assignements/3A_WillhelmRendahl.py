@@ -7,7 +7,7 @@ import sys
 #Assignement: Create a sieve for primes which takes user input on the lowest and highest number and find all primes between the two
 #Inspiration taken from https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
 
-def collect_data ():
+def collect_sieve_data ():
         while True:
                 try:
                         first_number = int(input("Ange ett heltal större än 1 från vilket du vill börja lista primtal?: "))
@@ -72,7 +72,7 @@ def main():
         
         choice = int(input("1. Såll\n2. Primtalsfaktorer"))
         if choice == 1:        
-                user_input = collect_data()
+                user_input = collect_sieve_data()
                 primes = sieve_of_eratosthenes(user_input)
                 print(primes)
         elif choice == 2:
