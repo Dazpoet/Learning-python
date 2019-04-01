@@ -65,6 +65,7 @@ def find_prime_factors(number):
                 while number % i == 0:
                         print(i)
                         number //= i
+        #If we're stuck with a number larger than 2 at the end that number must be a prime so we return it
         if number > 2:
                 print(number)                
 
