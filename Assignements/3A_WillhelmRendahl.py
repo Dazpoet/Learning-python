@@ -9,6 +9,7 @@ import sys
 #TODO: Simple GUI with buttons for each function
 #TODO: Add performance-measuring timer using time.perf_counter_ns()
 #TODO: Tell the user how many primes were found
+#TODO: Figure out why the prime finder doesn't work for 36
 
 def collect_sieve_data ():
         while True:
