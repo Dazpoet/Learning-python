@@ -6,6 +6,9 @@ import sys
 
 #Assignement: Create a sieve for primes which takes user input on the lowest and highest number and find all primes between the two
 #Inspiration taken from https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
+#TODO: Simple GUI with buttons for each function
+#TODO: Add performance-measuring timer using time.perf_counter_ns()
+#TODO: Tell the user how many primes were found
 
 def collect_sieve_data ():
         while True:
@@ -71,7 +74,7 @@ def find_prime_factors(number):
 
 def main():
         
-        choice = int(input("1. Såll\n2. Primtalsfaktorer"))
+        choice = int(input("1. Såll\n2. Primtalsfaktorer\n"))
         if choice == 1:        
                 user_input = collect_sieve_data()
                 primes = sieve_of_eratosthenes(user_input)
@@ -81,4 +84,4 @@ def main():
                 find_prime_factors(user_input)
                 
 if __name__ == "__main__":
-        main()            
+        main()
