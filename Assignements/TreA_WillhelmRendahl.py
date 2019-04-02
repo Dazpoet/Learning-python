@@ -6,10 +6,8 @@ import sys
 
 #Assignement: Create a sieve for primes which takes user input on the lowest and highest number and find all primes between the two
 #Inspiration taken from https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
-#TODO: Simple GUI with buttons for each function
 #TODO: Add performance-measuring timer using time.perf_counter_ns()
 #TODO: Tell the user how many primes were found
-#TODO: Figure out why the prime finder doesn't work for 36
 
 def collect_sieve_data ():
         while True:
@@ -64,14 +62,21 @@ def find_prime_factors(number):
                 number //= 2
         
         #With all 2s removed the remainder must be an odd number
-        #We move through the odd numbers between 3 and sqrt(number)+1
-        for i in range(3, math.floor(math.sqrt(number))+1, 2):
+        #We move through the odd numbers with a step lenght of 2 to make sure we don't hit an even one
+        for i in range(3, math.floor(math.sqrt(number))+1, 2): #Why, pray tell, is the +1 needed here
                 while number % i == 0:
                         print(i)
                         number //= i
         #If we're stuck with a number larger than 2 at the end that number must be a prime so we return it
         if number > 2:
-                print(number)                
+                print(number)
+
+def is_prime(number): #Tests if a number is a prime
+        for i in range (2, number):
+                if number % i == 0:
+                        return False
+        
+        return True                
 
 def main():
         
