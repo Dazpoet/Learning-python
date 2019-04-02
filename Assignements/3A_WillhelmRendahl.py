@@ -64,8 +64,8 @@ def find_prime_factors(number):
                 number //= 2
         
         #With all 2s removed the remainder must be an odd number
-        #We move through the odd numbers between 3 and sqrt(number)
-        for i in range(3, math.floor(math.sqrt(number)), 2):
+        #We move through the odd numbers between 3 and sqrt(number)+1
+        for i in range(3, math.floor(math.sqrt(number))+1, 2):
                 while number % i == 0:
                         print(i)
                         number //= i
