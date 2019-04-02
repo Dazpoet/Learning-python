@@ -25,13 +25,13 @@ def collect_sieve_data ():
 
         return first_number, last_number
 
-def sieve_of_eratosthenes(tuple):
+def sieve_of_eratosthenes(user_input):
         #Below something called dict comprehension is used and I was inspired from https://docs.python.org/3/tutorial/datastructures.html#dictionaries
-        values = {i: True for i in range(2,tuple[1])} #This generates the array (dictionary) with indexes and boolean values mentioned in sieve pseudocode
+        values = {i: True for i in range(2,user_input[1])} #This generates the array (dictionary) with indexes and boolean values mentioned in sieve pseudocode
         index_of_non_primes = []
 
         #We want to perform the following for each integer between 2 and the floor of sqrt(n) since the method requires no values larger than sqrt(n)
-        for i in range(2,math.floor(math.sqrt(tuple[1]))):
+        for i in range(2,math.floor(math.sqrt(user_input[1]))):
                 if values[i] == True:
                         n = 0
 
@@ -39,7 +39,7 @@ def sieve_of_eratosthenes(tuple):
                                 j = i**2 + n*i #I considered naming j "index" but felt it would be confusing with the latter for loop. TODO: Make up a better variable name
                                 index_of_non_primes.append(j)
                                 n += 1
-                                if j > tuple[1]:
+                                if j > user_input[1]:
                                         break
                 
         for index in index_of_non_primes:
@@ -47,7 +47,7 @@ def sieve_of_eratosthenes(tuple):
 
         prime_values = []
 
-        for prime in range(tuple[0],tuple[1]):
+        for prime in range(user_input[0],user_input[1]):
                 if values[prime] == True:
                         prime_values.append(prime)
 
