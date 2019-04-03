@@ -9,7 +9,7 @@ from tkinter import ttk
 
 def do_magic():
     user_input = int(first_number.get()), int(last_number.get() + 1)
-    primes.set(primemodule.sieve_of_eratosthenes(user_input))
+    primes.set(primemodule.sieve_of_eratosthenes(user_input)[1])
 
 #Create the alpha and the omega, root as the nerds call it
 root = Tk()
