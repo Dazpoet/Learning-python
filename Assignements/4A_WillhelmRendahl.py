@@ -47,12 +47,12 @@ def create_interface():
     create_quit_frame()
 
 def create_score_view():
-    ttk.Label(score_frame,text="Poäng").pack(side='left')
+    ttk.Label(score_frame,text="Poäng:").pack(side='left')
     ttk.Label(score_frame,textvariable=score).pack(side='right')
     score_frame.pack()
 
 def create_word_view():
-    ttk.Label(word_frame,text="Ord").pack(side='left')
+    ttk.Label(word_frame,text="Ord:").pack(side='left')
     ttk.Label(word_frame, textvariable=word).pack(side='right')
     word_frame.pack()
 
@@ -78,12 +78,13 @@ def correct():
 
     if questions[word_index.get()][1] == CHOICE_COMPARE[choice.get()]:
         global score, word
-        current_score = score.get() + 1
-        score.set(current_score)
+        
+        score.set(score.get() + 1)
         messagebox.showinfo("Rätt!", message="Du klarade denna, men klarar du nästa?")
-        calculated_new_word_index = word_index.get() + 1
-        word_index.set(calculated_new_word_index)
+        
+        word_index.set(word_index.get() + 1)
         word.set(questions[word_index.get()][0])
+
     else:
         messagebox.showinfo("Fel", message="Om du inte kan ordet, titta i kapitlet 'Verktygslådan' längst bak i boken.\nEfter att du gjort det kan du ordet så försök igen.")
 
