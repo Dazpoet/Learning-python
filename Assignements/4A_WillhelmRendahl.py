@@ -77,12 +77,13 @@ def correct():
     global questions, CHOICE_COMPARE, word_index
 
     if questions[word_index.get()][1] == CHOICE_COMPARE[choice.get()]:
-        global score
+        global score, word
         current_score = score.get() + 1
         score.set(current_score)
         messagebox.showinfo("Rätt!", message="Du klarade denna, men klarar du nästa?")
         calculated_new_word_index = word_index.get() + 1
         word_index.set(calculated_new_word_index)
+        word.set(questions[word_index.get()][0])
     else:
         messagebox.showinfo("Fel", message="Om du inte kan ordet, titta i kapitlet 'Verktygslådan' längst bak i boken.\nEfter att du gjort det kan du ordet så försök igen.")
 
