@@ -8,7 +8,7 @@ import time
 #Assignement: Create a sieve for primes which takes user input on the lowest and highest number and find all primes between the two
 #Inspiration taken from https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
 
-def collect_sieve_data ():
+def collect_sieve_data (): #This function collects user input for a starting and stopping value for the sieve calculations
         while True:
                 try:
                         first_number = int(input("Ange ett heltal större än 1 från vilket du vill börja lista primtal?: "))
@@ -26,7 +26,7 @@ def collect_sieve_data ():
 
         return first_number, last_number
 
-def collect_single_int():
+def collect_single_int(): #Collects a single integer value that is >= 2
         while True:
                 try:
                         single_int = int(input("Vilket tal vill du testa mot?: "))
@@ -39,7 +39,7 @@ def collect_single_int():
                 except (KeyboardInterrupt, EOFError):
                         sys.exit("Avslutar programmet")
 
-def main_menu():
+def main_menu(): #The main manu for this specific program, returns an integer
         try:        
                 choice = int(input("\nVad vill du göra?\n"
                         "1. Hitta alla primtal mellan två tal\n"
@@ -52,7 +52,7 @@ def main_menu():
         except (KeyboardInterrupt, EOFError):
                 sys.exit("Avslutar programmet")
 
-def sieve_of_eratosthenes(user_input):
+def sieve_of_eratosthenes(user_input): #This returns a tuple with time to perfom the action in ms first and a list of primes second
         #Below something called dict comprehension is used and I was inspired from https://docs.python.org/3/tutorial/datastructures.html#dictionaries
         start = time.perf_counter_ns()
         values = {i: True for i in range(2,user_input[1])} #This generates the array (dictionary) with indexes and boolean values mentioned in sieve pseudocode
@@ -69,16 +69,17 @@ def sieve_of_eratosthenes(user_input):
                                 n += 1
                                 if j > user_input[1]:
                                         break
-                
+        #Mark all the non-primes as false in the dict        
         for index in index_of_non_primes:
                 values[index] = False
-
+        #Create an empty list for all our primes
         prime_values = []
-
+        #Add all the primes to a list
         for prime in range(user_input[0],user_input[1]):
                 if values[prime] == True:
                         prime_values.append(prime)
-        
+        #The above listing might have been able to do with a list-comprehension but would probably be less readable
+
         stop = time.perf_counter_ns()
         calculation_time = (stop - start) / 1000000 #Returns the calculation time in milliseconds
 
@@ -106,7 +107,7 @@ def find_prime_factors(number):
 
 def is_prime(number): #Tests if a number is a prime
         for i in range (2, number):
-                if number % i == 0:
+                if number % i == 0: #If an integer i gives a modulus 0 it means the number isn't a prime
                         return False
         return True                
 
@@ -128,8 +129,10 @@ def main():
                                 print(f"{user_input} är ett primtal")
                         else:
                                 print(f"{user_input} är inte ett primtal")
-                else:
+                elif choice == 4:
                         sys.exit()
+                else:
+                        print("Du måste välja ett värde 1, 2, 3 eller 4.")
                 
 if __name__ == "__main__":
         main()
