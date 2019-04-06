@@ -3,6 +3,14 @@
 
 #Assignement: Create a simple game with a GUI that is somehow related to mathematics
 #This is attempt one where pack will be used and the mechanics are heavily fetched from example Dewey_kodexempel6.py from the course
+#TODO: Change from pack to grid
+#TODO: Have the words and their corresponding answer in a csv to make it easier to update
+#TODO: Check if having so many global variables is needed
+#TODO: Add a guesscounter
+#TODO: Add a main menu
+#TODO: Figure out an easter egg
+#TODO: Add a button that lets the user start over
+#TODO: Add a version where the user writes the answer rather than choose it
 
 import tkinter
 from tkinter import ttk, messagebox
@@ -19,7 +27,6 @@ word_index = tkinter.IntVar()
 CHOICE_COMPARE = {1: "Addition", 2: "Subtraktion", 3: "Multiplikation", 4: "Division"}
 score = tkinter.IntVar()
 
-#TODO: Have the words and their corresponding answer in a csv to make it easier to update
 questions = {
     0:("Produkt", "Multiplikation"),
     1:("Differens", "Subtraktion"),
@@ -82,13 +89,13 @@ def correct():
         score.set(score.get() + 1)
         messagebox.showinfo("Rätt!", message="Du klarade denna, men klarar du nästa?")
         
-        word_index.set(word_index.get() + 1)
+        word_index.set(word_index.get() + 1) #TODO: Add logic to make this stop when word_index > len(questions)
         word.set(questions[word_index.get()][0])
 
     else:
         messagebox.showinfo("Fel", message="Om du inte kan ordet, titta i kapitlet 'Verktygslådan' längst bak i boken.\nEfter att du gjort det kan du ordet så försök igen.")
 
-def quit_program():
+def quit_program(): #The traceback from this is horrible, TODO: Find a better way to quit
     root.destroy()
 
 if __name__ == "__main__":
