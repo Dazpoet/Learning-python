@@ -7,8 +7,8 @@
 #TODO: Have the words and their corresponding answer in a csv to make it easier to update
 #TODO: Check if having so many global variables is needed, coul some be added to their respective functions?
 #TODO: Add a guesscounter
-#TODO: Add a main menu, could this be a frame with buttons which based on choice creates difference interfaces? Destroy the main_menu frame?
-#TODO: Figure out an easter egg
+#TODO: Add a main menu, could this be a frame with buttons which based on choice creates difference interfaces? Destroy the main_menu frame to move forward?
+#TODO: Figure out an easter egg, need a picture of a toilet roll
 #TODO: Add a button that lets the user start over or go back to the main menu.
 #TODO: Add a version where the user writes the answer rather than choose it
 #TODO: Ask the user for their name
