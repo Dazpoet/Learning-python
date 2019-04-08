@@ -16,6 +16,7 @@ import tkinter
 from tkinter import ttk, messagebox
 
 root = tkinter.Tk()
+
 score_frame = tkinter.Frame(root)
 word_frame = tkinter.Frame(root)
 button_frame =tkinter.Frame(root)
@@ -35,7 +36,7 @@ questions = {
     }
 
 def main():
-    global questions, word, choice, CHOICE_COMPARE, word_index
+    global questions, word, word_index
 
     root.title("De fyra räknesätten")
     
@@ -69,10 +70,10 @@ def create_radio_buttons():
     radio3 = tkinter.Radiobutton(button_frame, text="Multiplikation", variable = choice, value = 3)
     radio4 = tkinter.Radiobutton(button_frame, text="Division", variable = choice, value = 4)
 
-    radio1.pack()
-    radio2.pack()
-    radio3.pack()
-    radio4.pack()
+    radio1.pack(anchor=tkinter.W)
+    radio2.pack(anchor=tkinter.W)
+    radio3.pack(anchor=tkinter.W)
+    radio4.pack(anchor=tkinter.W)
     button_frame.pack()  
 
 def create_quit_frame():
