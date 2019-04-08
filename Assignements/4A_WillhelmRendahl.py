@@ -90,7 +90,7 @@ def correct():
         global score, word
         
         score.set(score.get() + 1)
-        messagebox.showinfo("Rätt!", message="Du klarade denna, men klarar du nästa?")
+        #messagebox.showinfo("Rätt!", message="Du klarade denna, men klarar du nästa?")
         
         word_index.set(word_index.get() + 1) #TODO: Add logic to make this stop when word_index > len(questions)
         word.set(questions[word_index.get()][0])
