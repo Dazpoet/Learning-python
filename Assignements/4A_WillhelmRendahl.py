@@ -5,11 +5,11 @@
 #This is attempt one where pack will be used and the mechanics are heavily fetched from example Dewey_kodexempel6.py from the course
 #TODO: Change from pack to grid
 #TODO: Have the words and their corresponding answer in a csv to make it easier to update
-#TODO: Check if having so many global variables is needed
+#TODO: Check if having so many global variables is needed, coul some be added to their respective functions?
 #TODO: Add a guesscounter
-#TODO: Add a main menu
+#TODO: Add a main menu, could this be a frame with buttons which based on choice creates difference interfaces? Destroy the main_menu frame?
 #TODO: Figure out an easter egg
-#TODO: Add a button that lets the user start over
+#TODO: Add a button that lets the user start over or go back to the main menu.
 #TODO: Add a version where the user writes the answer rather than choose it
 
 import tkinter
@@ -25,7 +25,7 @@ quit_frame = tkinter.Frame(root)
 choice = tkinter.IntVar()
 word = tkinter.StringVar()
 word_index = tkinter.IntVar()
-CHOICE_COMPARE = {1: "Addition", 2: "Subtraktion", 3: "Multiplikation", 4: "Division"}
+CHOICE_COMPARE = {1: "Addition", 2: "Subtraktion", 3: "Multiplikation", 4: "Division"} #Could this be put directly into the correct function?
 score = tkinter.IntVar()
 
 questions = {
