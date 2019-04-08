@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+#TODO: Start over...
+
 #Mission: Using the functions from the console version, create a GUI application that performs a few basic operations
 
 import TreA_WillhelmRendahl as primemodule
