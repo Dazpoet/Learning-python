@@ -18,13 +18,11 @@ def collect_sieve_data (): #This function collects user input for a starting and
                         elif first_number < 2:
                                 print("Ditt startvärde måste vara större än 1, det finns inga primtal lägre än 2")
                         else:
-                                break
+                                return first_number, last_number
                 except ValueError:
                         print("Du måste skriva in heltal")
                 except (KeyboardInterrupt, EOFError): #I have yet to encounter someone who doesn't want to quit on these errors
                         sys.exit("Avslutar programmet")
-
-        return first_number, last_number
 
 def collect_single_int(): #Collects a single integer value that is >= 2
         while True:
