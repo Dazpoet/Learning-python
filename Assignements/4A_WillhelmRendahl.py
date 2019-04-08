@@ -11,6 +11,8 @@
 #TODO: Figure out an easter egg
 #TODO: Add a button that lets the user start over or go back to the main menu.
 #TODO: Add a version where the user writes the answer rather than choose it
+#TODO: Ask the user for their name
+#TODO: Add a high-score list
 
 import tkinter
 from tkinter import ttk, messagebox
