@@ -17,12 +17,31 @@ def maxvarde(lista):
 
     return maxvarde
 
+    #More fun method
+    #hogsta = 0
+    #for i in range(0, len(lista) - 1):
+    #    if i > hogsta:
+    #        hogsta = i
+    #    else:
+    #        continue
+
+    #return hogsta
+
 def minvarde(lista):
     lista.sort()
 
     minvarde = lista[0]
 
     return minvarde
+
+    #More fun method
+    #minimi = lista[0]
+    #for i in range(1,len(lista) -1):
+        #if i < minimi:
+            #minimi = i
+    #else:
+        #continue
+
 
 def medel(lista):
     medel = summa(lista) / len(lista)
