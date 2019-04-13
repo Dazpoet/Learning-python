@@ -211,4 +211,4 @@ def test_main():
                 print(winner_dict)
 
 if __name__ == "__main__":
-        test_main()
+        main()
