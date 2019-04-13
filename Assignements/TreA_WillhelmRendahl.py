@@ -7,7 +7,7 @@ import sys
 import time
 
 #Assignement: Create a sieve for primes which takes user input on the lowest and highest number and find all primes between the two
-#Inspiration taken from https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
+#Inspiration for the sieve has in no minor part been taken from https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
 
 def collect_sieve_data (): #This function collects user input for a starting and stopping value for the sieve calculations
         while True:
@@ -104,8 +104,8 @@ def primitive_sieve(user_input):
         start = time.perf_counter_ns()
 
         #Start by creating a list of booleans for all numbers between 2 and the maximum number the user inputted, these are all potential primes
-        candidates = [True for _ in range(user_input[1] + 1)]
-        candidates[0:1] = [False, False] #The first two values must be false since there are no primes below 2
+        candidates = {i: True for i in range((user_input[1] + 1))} #This generates a dictionary with indexes and boolean values
+        candidates[0] = candidates[1] = False #There are no primes below 2
 
         for index in range(2, user_input[1] + 1):
                 if not is_prime(index):
@@ -178,7 +178,11 @@ def test_main():
                 p1_wins = 0
                 p2_wins = 0
                 p3_wins = 0
-                for i in range(1000):
+
+                p1_total_time = 0
+                p2_total_time = 0
+                p3_total_time = 0
+                for i in range(100):
                         testbas = 2, i
                                 
                         primes_1 = sieve_of_eratosthenes(testbas)
@@ -197,10 +201,14 @@ def test_main():
                                 p2_wins += 1
                         elif primes_3[0] < (primes_1[0] and primes_2[0]):
                                 p3_wins += 1
-                
-                winner_dict = {"Dict":p1_wins, "List":p2_wins, "Primitive": p3_wins}
+                        
+                        p1_total_time += primes_1[0]
+                        p2_total_time += primes_2[0]
+                        p3_total_time += primes_3[0]
+
+                winner_dict = {"Dict":(p1_wins, round(p1_total_time, 2)), "List":(p2_wins, round(p2_total_time, 2)), "Primitive": (p3_wins, round(p3_total_time, 2))}
                 
                 print(winner_dict)
 
 if __name__ == "__main__":
-        test_main()
+        main()
