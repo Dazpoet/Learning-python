@@ -67,10 +67,13 @@ def main():
 
     lista = []
     
-    while len(lista) < 11:
+    collect_data = True 
+    while collect_data:
         try:
             nytt_varde = int(input("\nAnge ett heltal: "))
             lista.append(nytt_varde)
+            if len(lista) == 10:
+                collect_data = False
         except ValueError:
             print("Höruduru, ingenting annat än heltal är ok här!")
 
