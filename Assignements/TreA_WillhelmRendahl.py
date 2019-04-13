@@ -13,7 +13,7 @@ def collect_sieve_data (): #This function collects user input for a starting and
         while True:
                 try:
                         first_number = int(input("Ange ett heltal större än 1 från vilket du vill börja lista primtal?: "))
-                        last_number = int(input("Vid vilket heltalsvärde vill du sluta leta efter primtal?: ")) + 1 #We add 1 to get what the user acctually wants
+                        last_number = int(input("Vid vilket heltalsvärde vill du sluta leta efter primtal?: "))
                         if first_number > last_number:
                                 print("Ditt startvärde måste vara större än ditt slutvärde")
                         elif first_number < 2:
@@ -52,17 +52,18 @@ def main_menu(): #The main manu for this specific program, returns an integer
                 sys.exit("Avslutar programmet")
 
 def sieve_of_eratosthenes(user_input): #This returns a tuple with time to perfom the action in ms first and a list of primes second
-        #Below something called dict comprehension is used and I was inspired from https://docs.python.org/3/tutorial/datastructures.html#dictionaries
         start = time.perf_counter_ns()
-        values = {i: True for i in range(2,user_input[1])} #This generates the array (dictionary) with indexes and boolean values mentioned in sieve pseudocode
+        
+        values = {i: True for i in range((user_input[1] + 1))} #This generates the array (dictionary) with indexes and boolean values mentioned in sieve pseudocode
+        values[0] = values[1] = False
         index_of_non_primes = []
 
         #We want to perform the following for each integer between 2 and the floor of sqrt(n) since the method requires no values larger than sqrt(n)
-        for i in range(2,math.floor(math.sqrt(user_input[1]))):
+        for i in range(2,math.ceil(math.sqrt(user_input[1]))):
                 if values[i] == True:
                         n = 0
 
-                        while True: #This might be just as doable with "while not j > last_number"?
+                        while True: #This might be just as doable with "while not j > user_input[1]"?
                                 j = i**2 + n*i #I considered naming j "index" but felt it would be confusing with the latter for loop. TODO: Make up a better variable name
                                 index_of_non_primes.append(j)
                                 n += 1
@@ -71,10 +72,10 @@ def sieve_of_eratosthenes(user_input): #This returns a tuple with time to perfom
         #Mark all the non-primes as false in the dict        
         for index in index_of_non_primes:
                 values[index] = False
-        #Create an empty list for all our primes
+        #Create an empty list for primes
         prime_values = []
         #Add all the primes to a list
-        for prime in range(user_input[0],user_input[1]):
+        for prime in range(user_input[0],(user_input[1] + 1)):
                 if values[prime] == True:
                         prime_values.append(prime)
         #The above listing might have been able to do with a list-comprehension but would probably be less readable
@@ -83,6 +84,31 @@ def sieve_of_eratosthenes(user_input): #This returns a tuple with time to perfom
         calculation_time = (stop - start) / 1000000 #Returns the calculation time in milliseconds
 
         return calculation_time, prime_values
+
+def sieve_of_eratosthenes_2(user_input): #Returns a tuple with performance time in ms and a list of primes based on user input
+        start = time.perf_counter_ns()
+
+        #Start by creating a list of booleans for all numbers between 2 and the maximum number the user inputted, these are all potential primes
+        candidates = [True for _ in range(user_input[1] + 1)] #It doesn't work if this is range(2, user_input[1] + 1) and I have no idea why
+        candidates[0:1] = [False, False] #The first two values must be false
+
+        for index in range(2, (user_input[1] + 1)):
+                if candidates[index]: #If the candidate is True we perform the below operations, since this always starts at 2 we're in the clear since that is always true
+                        for i in range(index * 2, (user_input[1] + 1), index): #When the candidate was true we remove all following multiples of it by stepping through candidates in steps equal to the size of candidate
+                                candidates[i] = False #Set multiple, which is at index i, to false
+
+        #Create an empty list of primes in which we'll input the true primes from candidates
+        primes = []
+        
+        for i in range(user_input[0], user_input[1] + 1):
+                if candidates[i]:
+                        primes.append(i)
+
+        stop = time.perf_counter_ns()
+
+        calculation_time = (stop - start) / 1000000
+
+        return calculation_time, primes
 
 def find_prime_factors(number):
         prime_factors = []
@@ -115,7 +141,7 @@ def main():
                 choice = main_menu()
                 if choice == 1:        
                         user_input = collect_sieve_data()
-                        primes = sieve_of_eratosthenes(user_input)
+                        primes = sieve_of_eratosthenes_2(user_input)
                         print(f"Beräkningen tog {round(primes[0], 2)} millisekunder och det finns {len(primes[1])} primtal mellan {user_input[0]} och {user_input[1]}, de är:\n", *primes[1], sep=" ", end="\n")
                 elif choice == 2:
                         user_input = collect_single_int()
@@ -132,6 +158,20 @@ def main():
                         sys.exit()
                 else:
                         print("Du måste välja ett värde 1, 2, 3 eller 4.")
-                
+
+def test_main():
+        testbas = 2, 10
+        
+        primes_1 = sieve_of_eratosthenes(testbas)
+        print(primes_1)
+
+        primes_2 = sieve_of_eratosthenes_2(testbas)
+        print(primes_2)
+
+        if primes_1[1] == primes_2[1]:
+                print("Lika resultat")
+        else:
+                print("Olika resultat")
+
 if __name__ == "__main__":
-        main()
+        test_main()
