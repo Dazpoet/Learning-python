@@ -54,32 +54,32 @@ def main_menu(): #The main manu for this specific program, returns an integer
 def sieve_of_eratosthenes(user_input): #This returns a tuple with time to perfom the action in ms first and a list of primes second
         start = time.perf_counter_ns()
         
-        values = {i: True for i in range((user_input[1] + 1))} #This generates the array (dictionary) with indexes and boolean values mentioned in sieve pseudocode
-        values[0] = values[1] = False #There are no primes below 2
+        candidates = {i: True for i in range((user_input[1] + 1))} #This generates a dictionary with indexes and boolean values
+        candidates[0] = candidates[1] = False #There are no primes below 2
 
         #We want to perform the following for each integer between 2 and the floor of sqrt(n) since the method requires no values larger than sqrt(n)
-        for i in range(2, math.ceil(math.sqrt(user_input[1]) + 1 )):
-                if values[i] == True:
-                        for j in range(i**2, user_input[1] + 1, i):
-                                values[j] = False
+        for index in range(2, math.ceil(math.sqrt(user_input[1]) + 1 )):
+                if candidates[index] == True:
+                        for j in range(index**2, user_input[1] + 1, index):
+                                candidates[j] = False
         
         #Create an empty list for primes
-        prime_values = []
+        primes = []
         #Add all the primes to a list
-        for prime in range(user_input[0],(user_input[1] + 1)):
-                if values[prime]:
-                        prime_values.append(prime)
+        for i in range(user_input[0],(user_input[1] + 1)):
+                if candidates[i]:
+                        primes.append(i)
 
         stop = time.perf_counter_ns()
         calculation_time = (stop - start) / 1000000 #Returns the calculation time in milliseconds
 
-        return calculation_time, prime_values
+        return calculation_time, primes
 
 def sieve_of_eratosthenes_2(user_input): #Returns a tuple with performance time in ms and a list of primes based on user input
         start = time.perf_counter_ns()
 
         #Start by creating a list of booleans for all numbers between 2 and the maximum number the user inputted, these are all potential primes
-        candidates = [True for _ in range(user_input[1] + 1)] #It doesn't work if this is range(2, user_input[1] + 1) and I have no idea why
+        candidates = [True for _ in range(user_input[1] + 1)] #This generates a list of booleans, one for each value we want to evaluate for being a prime
         candidates[0:1] = [False, False] #The first two values must be false since there are no primes below 2
 
         for index in range(2, math.ceil(math.sqrt((user_input[1] + 1)))):
@@ -104,7 +104,7 @@ def primitive_sieve(user_input):
         start = time.perf_counter_ns()
 
         #Start by creating a list of booleans for all numbers between 2 and the maximum number the user inputted, these are all potential primes
-        candidates = [True for _ in range(user_input[1] + 1)] #It doesn't work if this is range(2, user_input[1] + 1) and I have no idea why
+        candidates = [True for _ in range(user_input[1] + 1)]
         candidates[0:1] = [False, False] #The first two values must be false since there are no primes below 2
 
         for index in range(2, user_input[1] + 1):
@@ -133,8 +133,8 @@ def find_prime_factors(number): #Finds the prime factors of a given number and r
                 number //= 2
         
         #With all 2s removed the remainder must be an odd number
-        #We move through the odd numbers with a step lenght of 2 to make sure we don't hit an even one
-        for i in range(3, math.floor(math.sqrt(number))+1, 2): #Why, pray tell, is the +1 needed here
+        #We move through the odd numbers by setting the step lenght to 2
+        for i in range(3, math.floor(math.sqrt(number))+1, 2):
                 while number % i == 0:
                         prime_factors.append(i)
                         number //= i
