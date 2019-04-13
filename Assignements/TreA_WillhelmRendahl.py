@@ -55,30 +55,20 @@ def sieve_of_eratosthenes(user_input): #This returns a tuple with time to perfom
         start = time.perf_counter_ns()
         
         values = {i: True for i in range((user_input[1] + 1))} #This generates the array (dictionary) with indexes and boolean values mentioned in sieve pseudocode
-        values[0] = values[1] = False
-        index_of_non_primes = []
+        values[0] = values[1] = False #There are no primes below 2
 
         #We want to perform the following for each integer between 2 and the floor of sqrt(n) since the method requires no values larger than sqrt(n)
-        for i in range(2,math.ceil(math.sqrt(user_input[1]))):
+        for i in range(2, math.ceil(math.sqrt(user_input[1]) + 1 )):
                 if values[i] == True:
-                        n = 0
-
-                        while True: #This might be just as doable with "while not j > user_input[1]"?
-                                j = i**2 + n*i #I considered naming j "index" but felt it would be confusing with the latter for loop. TODO: Make up a better variable name
-                                index_of_non_primes.append(j)
-                                n += 1
-                                if j > user_input[1]:
-                                        break
-        #Mark all the non-primes as false in the dict        
-        for index in index_of_non_primes:
-                values[index] = False
+                        for j in range(i**2, user_input[1] + 1, i):
+                                values[j] = False
+        
         #Create an empty list for primes
         prime_values = []
         #Add all the primes to a list
         for prime in range(user_input[0],(user_input[1] + 1)):
-                if values[prime] == True:
+                if values[prime]:
                         prime_values.append(prime)
-        #The above listing might have been able to do with a list-comprehension but would probably be less readable
 
         stop = time.perf_counter_ns()
         calculation_time = (stop - start) / 1000000 #Returns the calculation time in milliseconds
@@ -90,11 +80,11 @@ def sieve_of_eratosthenes_2(user_input): #Returns a tuple with performance time 
 
         #Start by creating a list of booleans for all numbers between 2 and the maximum number the user inputted, these are all potential primes
         candidates = [True for _ in range(user_input[1] + 1)] #It doesn't work if this is range(2, user_input[1] + 1) and I have no idea why
-        candidates[0:1] = [False, False] #The first two values must be false
+        candidates[0:1] = [False, False] #The first two values must be false since there are no primes below 2
 
-        for index in range(2, (user_input[1] + 1)):
+        for index in range(2, math.ceil(math.sqrt((user_input[1] + 1)))):
                 if candidates[index]: #If the candidate is True we perform the below operations, since this always starts at 2 we're in the clear since that is always true
-                        for i in range(index * 2, (user_input[1] + 1), index): #When the candidate was true we remove all following multiples of it by stepping through candidates in steps equal to the size of candidate
+                        for i in range(index**2, (user_input[1] + 1), index): #When the candidate was true we remove all following multiples of it by stepping through candidates in steps equal to the size of candidate
                                 candidates[i] = False #Set multiple, which is at index i, to false
 
         #Create an empty list of primes in which we'll input the true primes from candidates
@@ -110,7 +100,31 @@ def sieve_of_eratosthenes_2(user_input): #Returns a tuple with performance time 
 
         return calculation_time, primes
 
-def find_prime_factors(number):
+def primitive_sieve(user_input):
+        start = time.perf_counter_ns()
+
+        #Start by creating a list of booleans for all numbers between 2 and the maximum number the user inputted, these are all potential primes
+        candidates = [True for _ in range(user_input[1] + 1)] #It doesn't work if this is range(2, user_input[1] + 1) and I have no idea why
+        candidates[0:1] = [False, False] #The first two values must be false since there are no primes below 2
+
+        for index in range(2, user_input[1] + 1):
+                if not is_prime(index):
+                        candidates[index] = False
+
+        #Create an empty list of primes in which we'll input the true primes from candidates
+        primes = []
+        
+        for i in range(user_input[0], user_input[1] + 1):
+                if candidates[i]:
+                        primes.append(i)
+
+        stop = time.perf_counter_ns()
+
+        calculation_time = (stop - start) / 1000000
+
+        return calculation_time, primes
+
+def find_prime_factors(number): #Finds the prime factors of a given number and return them as a list
         prime_factors = []
 
         #Start by finding all the 2s in the number, we do this specially since 2 is the only even prime
@@ -130,7 +144,7 @@ def find_prime_factors(number):
         
         return prime_factors
 
-def is_prime(number): #Tests if a number is a prime
+def is_prime(number): #Tests if a number is a prime and returns a boolean
         for i in range (2, number):
                 if number % i == 0: #If an integer i gives a modulus 0 it means the number isn't a prime
                         return False
@@ -160,18 +174,33 @@ def main():
                         print("Du måste välja ett värde 1, 2, 3 eller 4.")
 
 def test_main():
-        testbas = 2, 10
-        
-        primes_1 = sieve_of_eratosthenes(testbas)
-        print(primes_1)
+        for _ in range(5):
+                p1_wins = 0
+                p2_wins = 0
+                p3_wins = 0
+                for i in range(1000):
+                        testbas = 2, i
+                                
+                        primes_1 = sieve_of_eratosthenes(testbas)
+                        primes_2 = sieve_of_eratosthenes_2(testbas)
+                        primes_3 = primitive_sieve(testbas)
 
-        primes_2 = sieve_of_eratosthenes_2(testbas)
-        print(primes_2)
+                        if primes_1[1] == primes_2[1]== primes_3[1]:
+                                pass
+                        else:
+                                print("Annorlunda resultat i körning ", i)
+                                print(primes_1[1], primes_2[1], primes_3, sep='\n')
 
-        if primes_1[1] == primes_2[1]:
-                print("Lika resultat")
-        else:
-                print("Olika resultat")
+                        if primes_1[0] < (primes_2[0] and primes_3[0]):
+                                p1_wins += 1
+                        elif primes_2[0] < (primes_1[0] and primes_3[0]):
+                                p2_wins += 1
+                        elif primes_3[0] < (primes_1[0] and primes_2[0]):
+                                p3_wins += 1
+                
+                winner_dict = {"Dict":p1_wins, "List":p2_wins, "Primitive": p3_wins}
+                
+                print(winner_dict)
 
 if __name__ == "__main__":
         test_main()
