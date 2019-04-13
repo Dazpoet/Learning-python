@@ -57,8 +57,8 @@ def sieve_of_eratosthenes(user_input): #This returns a tuple with time to perfom
         candidates = {i: True for i in range((user_input[1] + 1))} #This generates a dictionary with indexes and boolean values
         candidates[0] = candidates[1] = False #There are no primes below 2
 
-        #We want to perform the following for each integer between 2 and the floor of sqrt(n) since the method requires no values larger than sqrt(n)
-        for index in range(2, math.ceil(math.sqrt(user_input[1]) + 1 )):
+        #We want to perform the following for each integer between 2 and sqrt(user_input[1] + 1)
+        for index in range(2, math.ceil(math.sqrt(user_input[1]) + 1 )): #math.ceil added since range doesn't accept floats and using floor make troubles aplenty
                 if candidates[index] == True:
                         for j in range(index**2, user_input[1] + 1, index):
                                 candidates[j] = False
@@ -83,7 +83,7 @@ def sieve_of_eratosthenes_2(user_input): #Returns a tuple with performance time 
         candidates[0:1] = [False, False] #The first two values must be false since there are no primes below 2
 
         for index in range(2, math.ceil(math.sqrt((user_input[1] + 1)))):
-                if candidates[index]: #If the candidate is True we perform the below operations, since this always starts at 2 we're in the clear since that is always true
+                if candidates[index]: #If the candidate is True we perform the below operations
                         for i in range(index**2, (user_input[1] + 1), index): #When the candidate was true we remove all following multiples of it by stepping through candidates in steps equal to the size of candidate
                                 candidates[i] = False #Set multiple, which is at index i, to false
 
@@ -100,7 +100,7 @@ def sieve_of_eratosthenes_2(user_input): #Returns a tuple with performance time 
 
         return calculation_time, primes
 
-def primitive_sieve(user_input):
+def primitive_sieve(user_input): #Returns a tuple with performance time in ms and a list of primes based on user input
         start = time.perf_counter_ns()
 
         #Start by creating a list of booleans for all numbers between 2 and the maximum number the user inputted, these are all potential primes
