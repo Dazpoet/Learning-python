@@ -120,6 +120,7 @@ def correct():
             \nStarta programmet igen för att få köra en omgång till med en annan blandning ord.\
             \nProgrammet innehåller {number_of_questions} ord så chansen finns att du stöter på några nya ord nästa gång"
             messagebox.showinfo(message=message)
+            quit_program()
     else:
         messagebox.showinfo("Fel", message="Om du inte kan ordet, titta i kapitlet 'Verktygslådan' längst bak i boken.\nEfter att du gjort det kan du ordet så försök igen.")
 
