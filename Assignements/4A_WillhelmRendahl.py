@@ -4,7 +4,6 @@
 #Assignement: Create a simple game with a GUI that is somehow related to mathematics
 #This is attempt one where pack will be used and the mechanics are heavily fetched from example Dewey_kodexempel6.py from the course
 #TODO: Change from pack to grid
-#TODO: Have the words and their corresponding answer in a csv to make it easier to update
 #TODO: Check if having so many global variables is needed, coul some be added to their respective functions?
 #TODO: Add a guesscounter
 #TODO: Add a main menu, could this be a frame with buttons which based on choice creates difference interfaces? Destroy the main_menu frame to move forward?
@@ -16,6 +15,8 @@
 
 import tkinter
 from tkinter import ttk, messagebox
+import csv
+import os
 
 root = tkinter.Tk()
 
@@ -27,28 +28,38 @@ quit_frame = tkinter.Frame(root)
 choice = tkinter.IntVar()
 word = tkinter.StringVar()
 word_index = tkinter.IntVar()
-CHOICE_COMPARE = {1: "Addition", 2: "Subtraktion", 3: "Multiplikation", 4: "Division"} #Could this be put directly into the correct function?
 score = tkinter.IntVar()
 
-questions = {
-    0:("Produkt", "Multiplikation"),
-    1:("Differens", "Subtraktion"),
-    2:("Summa", "Addition"),
-    3:("Kvot", "Division")
-    }
+questions = {}
 
 def main():
     global questions, word, word_index
 
     root.title("De fyra räknesätten")
     
-    word_index.set(0)
+    questions = generate_questions()
+
+    word_index.set(1)
     word.set(questions[word_index.get()][0])
 
     messagebox.showinfo("Regler", "Du kommer att få ett antal ord, ditt uppdrag är att veta vilket räknesätt de hör ihop med.\nLycka till!")
     create_interface()
     tkinter.mainloop()
 
+def generate_questions():
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    file_path = dir_path + "\indata.csv"
+    
+    with open(file_path, newline='') as csvfile:
+        indata_lista = [row for row in csv.reader(csvfile)]
+
+    questions = {}
+
+    for i in range(len(indata_lista)):
+        questions[i] = tuple(indata_lista[i])
+    
+    print(questions)
+    return questions
 
 def create_interface():
     create_score_view()
@@ -84,17 +95,25 @@ def create_quit_frame():
     quit_frame.pack()
 
 def correct():
-    global questions, CHOICE_COMPARE, word_index
+    global questions, word_index, choice
 
-    if questions[word_index.get()][1] == CHOICE_COMPARE[choice.get()]:
+    CHOICE_COMPARE = {1: "Addition", 2: "Subtraktion", 3: "Multiplikation", 4: "Division"}
+
+    print(questions[word_index.get()][1].lower())
+    print(CHOICE_COMPARE[choice.get()].lower())
+    if questions[word_index.get()][1].lower() == CHOICE_COMPARE[choice.get()].lower():
         global score, word
         
         score.set(score.get() + 1)
-        #messagebox.showinfo("Rätt!", message="Du klarade denna, men klarar du nästa?")
         
-        word_index.set(word_index.get() + 1) #TODO: Add logic to make this stop when word_index > len(questions)
-        word.set(questions[word_index.get()][0])
-
+        if word_index.get() < len(questions):
+            word_index.set(word_index.get() + 1)
+            word.set(questions[word_index.get()][0])
+        else:
+            message = f"Du har klarat alla frågor i den här omgången!\
+            \nStarta programmet igen för att få köra en omgång till med en annan blandning ord.\
+            \nProgrammet innehåller {len(questions)} frågor så chansen finns att du stöter på några nya ord nästa gång"
+            messagebox.showinfo(message)
     else:
         messagebox.showinfo("Fel", message="Om du inte kan ordet, titta i kapitlet 'Verktygslådan' längst bak i boken.\nEfter att du gjort det kan du ordet så försök igen.")
 
