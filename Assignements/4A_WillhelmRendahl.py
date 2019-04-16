@@ -17,6 +17,7 @@ import tkinter
 from tkinter import ttk, messagebox
 import csv
 import os
+import random
 
 root = tkinter.Tk()
 
@@ -31,32 +32,39 @@ word_index = tkinter.IntVar()
 score = tkinter.IntVar()
 
 questions = {}
+number_of_questions = 0
 
 def main():
     global questions, word, word_index
 
     root.title("De fyra räknesätten")
     
-    questions = generate_questions()
+    questions = generate_questions(3)
 
-    word_index.set(1)
+    word_index.set(0)
     word.set(questions[word_index.get()][0])
 
     messagebox.showinfo("Regler", "Du kommer att få ett antal ord, ditt uppdrag är att veta vilket räknesätt de hör ihop med.\nLycka till!")
     create_interface()
     tkinter.mainloop()
 
-def generate_questions():
+def generate_questions(n): #Returns a dictionary with an index and n matching pairs of question,answer tuples
+    global number_of_questions
+
     dir_path = os.path.dirname(os.path.realpath(__file__))
     file_path = dir_path + "\indata.csv"
     
-    with open(file_path, newline='') as csvfile:
-        indata_lista = [row for row in csv.reader(csvfile)]
+    with open(file_path, newline='', encoding='utf-8') as csvfile:
+        input_data = [row for row in csv.reader(csvfile)]
+
+    number_of_questions = len(input_data) - 1 #-1 to account for the headers
+
+    input_data_random_sample_of_lenght_n = random.sample(input_data[1:len(input_data)], k=(n+1)) #This variable name is a real mouthful, but very telling of what it is
 
     questions = {}
 
-    for i in range(len(indata_lista)):
-        questions[i] = tuple(indata_lista[i])
+    for i in range(len(input_data_random_sample_of_lenght_n)):
+        questions[i] = tuple(input_data_random_sample_of_lenght_n[i])
     
     print(questions)
     return questions
@@ -95,29 +103,27 @@ def create_quit_frame():
     quit_frame.pack()
 
 def correct():
-    global questions, word_index, choice
+    global questions, word_index, choice, number_of_questions
 
     CHOICE_COMPARE = {1: "Addition", 2: "Subtraktion", 3: "Multiplikation", 4: "Division"}
 
-    print(questions[word_index.get()][1].lower())
-    print(CHOICE_COMPARE[choice.get()].lower())
     if questions[word_index.get()][1].lower() == CHOICE_COMPARE[choice.get()].lower():
         global score, word
         
         score.set(score.get() + 1)
         
-        if word_index.get() < len(questions):
+        if not word_index.get() == len(questions) - 1:
             word_index.set(word_index.get() + 1)
             word.set(questions[word_index.get()][0])
         else:
-            message = f"Du har klarat alla frågor i den här omgången!\
+            message = f"Du har koll på matteorden i den här omgången!\
             \nStarta programmet igen för att få köra en omgång till med en annan blandning ord.\
-            \nProgrammet innehåller {len(questions)} frågor så chansen finns att du stöter på några nya ord nästa gång"
-            messagebox.showinfo(message)
+            \nProgrammet innehåller {number_of_questions} ord så chansen finns att du stöter på några nya ord nästa gång"
+            messagebox.showinfo(message=message)
     else:
         messagebox.showinfo("Fel", message="Om du inte kan ordet, titta i kapitlet 'Verktygslådan' längst bak i boken.\nEfter att du gjort det kan du ordet så försök igen.")
 
-def quit_program(): #The traceback from this is horrible, TODO: Find a better way to quit
+def quit_program():
     root.destroy()
 
 if __name__ == "__main__":
