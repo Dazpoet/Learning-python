@@ -110,15 +110,16 @@ def create_quit_frame():
     quit_frame.pack(side='bottom')
 
 def correct():
-    global questions, word_index, choice, number_of_questions
+    global questions, word_index, choice, number_of_questions, guesses
 
     CHOICE_COMPARE = {1: "Addition", 2: "Subtraktion", 3: "Multiplikation", 4: "Division"}
 
+    guesses.set(guesses.get() + 1)
+
     if questions[word_index.get()][1].lower() == CHOICE_COMPARE[choice.get()].lower():
-        global score, word, guesses
+        global score, word
         
         score.set(score.get() + 1)
-        guesses.set(guesses.get() + 1)
         
         if not word_index.get() == len(questions) - 1:
             word_index.set(word_index.get() + 1)
