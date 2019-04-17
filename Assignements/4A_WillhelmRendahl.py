@@ -42,7 +42,6 @@ def main():
     root.geometry("300x200")
     
     questions = generate_questions(4)
-    print(questions)
     guesses.set(0)
     word_index.set(0)
     word.set(questions[word_index.get()][0])
