@@ -118,11 +118,11 @@ def correct():
         global score, word, guesses
         
         score.set(score.get() + 1)
+        guesses.set(guesses.get() + 1)
         
         if not word_index.get() == len(questions) - 1:
             word_index.set(word_index.get() + 1)
             word.set(questions[word_index.get()][0])
-            guesses.set(guesses.get() + 1)
         else:
             message = f"Du har koll på matteorden i den här omgången, du tog alla frågor på {guesses.get()} försök!\
             \nStarta programmet igen för att få köra en omgång till med en annan blandning ord.\
