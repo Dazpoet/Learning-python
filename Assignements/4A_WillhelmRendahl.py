@@ -52,10 +52,15 @@ def main():
 
 def generate_questions(n): #Returns a dictionary with an index and n matching pairs of question,answer tuples
     global number_of_questions
-
-    dir_path = os.path.dirname(os.path.realpath(__file__))
-    file_path = dir_path + "\indata.csv"
     
+    #Grab data from csv file in dir path
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    #File path will be different depending on OS, below solution works on Win+Mac, not sure on linux
+    if os.name == "posix": #Assume MacOS and hopefully works on *nix aswell as it is a posix os
+        file_path = dir_path + "/indata.csv"
+    elif os.name == "nt": #Assume Windows
+        file_path = dir_path + "\indata.csv"
+
     with open(file_path, newline='', encoding='utf-8') as csvfile:
         input_data = [row for row in csv.reader(csvfile)]
 
@@ -120,6 +125,7 @@ def correct():
         global score, word
         
         score.set(score.get() + 1)
+        choice.set(None)
         
         if not word_index.get() == len(questions) - 1:
             word_index.set(word_index.get() + 1)
