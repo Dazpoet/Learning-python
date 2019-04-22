@@ -56,7 +56,7 @@ def generate_questions(n): #Returns a dictionary with an index and n matching pa
     #Grab data from csv file in dir path
     dir_path = os.path.dirname(os.path.realpath(__file__))
     #File path will be different depending on OS, below solution works on Win+Mac, not sure on linux
-    if os.name == "posix": #Assume MacOS and hopefully works on *nix aswell as it is a posix os
+    if os.name == "posix": #Assume MacOS and hopefully works on *nix/*BSD aswell as they are posix compliant os'
         file_path = dir_path + "/indata.csv"
     elif os.name == "nt": #Assume Windows
         file_path = dir_path + "\indata.csv"
