@@ -155,7 +155,7 @@ def main():
                 choice = main_menu()
                 if choice == 1:        
                         user_input = collect_sieve_data()
-                        primes = sieve_of_eratosthenes_2(user_input)
+                        primes = sieve_of_eratosthenes(user_input)
                         print(f"Beräkningen tog {round(primes[0], 2)} millisekunder och det finns {len(primes[1])} primtal mellan {user_input[0]} och {user_input[1]}, de är:\n", *primes[1], sep=" ", end="\n")
                 elif choice == 2:
                         user_input = collect_single_int()
