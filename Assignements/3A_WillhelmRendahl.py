@@ -104,10 +104,10 @@ def primitive_sieve(user_input): #Returns a tuple with performance time in ms an
         start = time.perf_counter_ns()
 
         #Start by creating a list of booleans for all numbers between 2 and the maximum number the user inputted, these are all potential primes
-        candidates = {i: True for i in range((user_input[1] + 1))} #This generates a dictionary with indexes and boolean values
-        candidates[0] = candidates[1] = False #There are no primes below 2
+        candidates = {i: True for i in range(user_input[0], (user_input[1] + 1))} #This generates a dictionary with indexes and boolean values
+        #candidates[0] = candidates[1] = False #There are no primes below 2
 
-        for index in range(2, user_input[1] + 1):
+        for index in range(user_input[0], user_input[1] + 1):
                 if not is_prime(index):
                         candidates[index] = False
 
@@ -211,4 +211,4 @@ def test_main():
                 print(winner_dict)
 
 if __name__ == "__main__":
-        main()
+       test_main()
