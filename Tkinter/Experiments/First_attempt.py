@@ -7,16 +7,6 @@ from functools import partial
 
 root = tkinter.Tk()
 
-root.title("Testprogram")
-root.geometry("480x360")
-
-#I keep seeing these, I hope they do something good
-root.columnconfigure(0, weight=1)
-root.rowconfigure(0,weight=1)
-
-menu_frame = ttk.Frame(root)
-menu_frame.grid(column = 0, row = 0, sticky = "news")
-
 def create_game(n):
     if n == 1:
         create_game_1()
@@ -47,14 +37,28 @@ def create_game_2():
     for child in window.winfo_children():
         child.grid_configure(padx = 20, pady = 5)
 
-buttons = [("Uppgift 1","create_game_1"), ("Uppgift 2","create_game_2")]
+def main():
+    root.title("Testprogram")
+    #root.geometry("480x360") #This shouldn't be needed once a textbox is added on the side with instructions
 
-for index, button in enumerate(buttons):
-    message = button[0]
-    command = button[1]
-    ttk.Button(menu_frame, text = message, command = partial(create_game, (index + 1))).grid(column = 0, row = index, sticky = "news")
+    #I keep seeing these, I hope they do something good
+    root.columnconfigure(0, weight=1)
+    root.rowconfigure(0,weight=1)
 
-for child in menu_frame.winfo_children():
-    child.grid_configure(padx = 20, pady = 10)
+    menu_frame = ttk.Frame(root)
+    menu_frame.grid(column = 0, row = 0, sticky = "news")
 
-root.mainloop()
+    buttons = [("Uppgift 1","create_game_1"), ("Uppgift 2","create_game_2")]
+
+    for index, button in enumerate(buttons):
+        message = button[0]
+        command = button[1]
+        ttk.Button(menu_frame, text = message, command = partial(create_game, (index + 1))).grid(column = 0, row = index, sticky = "news")
+
+    for child in menu_frame.winfo_children():
+        child.grid_configure(padx = 20, pady = 10)
+
+    root.mainloop()
+
+if __name__ == "__main__":
+    main()
