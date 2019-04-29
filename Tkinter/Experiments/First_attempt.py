@@ -52,8 +52,7 @@ def main():
 
     for index, button in enumerate(buttons):
         message = button[0]
-        command = button[1]
-        ttk.Button(menu_frame, text = message, command = partial(create_game, (index + 1))).grid(column = 0, row = index, sticky = "news")
+        ttk.Button(menu_frame, text = message, command = partial(create_game, (index + 1))).grid(column = 0, row = index, sticky = "news") #partial works but I don't know how...
 
     for child in menu_frame.winfo_children():
         child.grid_configure(padx = 20, pady = 10)
