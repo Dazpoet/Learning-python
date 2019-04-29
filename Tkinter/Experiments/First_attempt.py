@@ -39,7 +39,7 @@ def create_game_2():
 
 def main():
     root.title("Testprogram")
-    #root.geometry("480x360") #This shouldn't be needed once a textbox is added on the side with instructions
+    root.geometry("480x360") #This shouldn't be needed once a textbox is added on the side with instructions
 
     #I keep seeing these, I hope they do something good
     root.columnconfigure(0, weight=1)
