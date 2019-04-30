@@ -4,10 +4,9 @@
 #Assignement: Create a simple game with a GUI that is somehow related to mathematics
 #This is attempt one where pack will be used and the mechanics are heavily fetched from example Dewey_kodexempel6.py from the course
 #TODO: Change from pack to grid
-#TODO: Check if having so many global variables is needed, coul some be added to their respective functions?
+#TODO: Check if having so many global variables is needed, could some be added to their respective functions?
 #TODO: Add a main menu, could this be a frame with buttons which based on choice creates difference interfaces? Destroy the main_menu frame to move forward?
 #TODO: Figure out an easter egg, need a picture of a toilet roll
-#TODO: Add a button that lets the user start over or go back to the main menu.
 #TODO: Add a version where the user writes the answer rather than choose it
 #TODO: Ask the user for their name
 #TODO: Add a high-score list
