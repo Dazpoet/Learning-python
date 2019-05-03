@@ -48,11 +48,13 @@ def main():
     menu_frame = ttk.Frame(root)
     menu_frame.grid(column = 0, row = 0, sticky = "news")
 
-    buttons = [("Uppgift 1","create_game_1"), ("Uppgift 2","create_game_2")]
+    #buttons = [("Uppgift 1","create_game_1"), ("Uppgift 2","create_game_2")]
+    buttons = ["Kvadrat", "Rektangel", "Cirkel", "Romb", "Parallellogram", "Liksidig triangel"]
 
     for index, button in enumerate(buttons):
-        message = button[0]
+        #message = button[0]
         #command = button[1] #In a perfect world this would go into the button rather than using partial
+        message = button
         ttk.Button(menu_frame, text = message, command = partial(create_game, (index + 1))).grid(column = 0, row = index, sticky = "news") #partial works but I don't know how...
 
     for child in menu_frame.winfo_children():
