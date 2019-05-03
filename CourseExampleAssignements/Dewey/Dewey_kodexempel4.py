@@ -16,7 +16,7 @@ halsning = tkinter.Label(ruta, text='Jag är en tkinter.Label')
 halsning.pack()
 
 #Skapa och lägg in en etikett
-knapp = tkinter.Button(ruta, text='Hej, jag är en knapp', bg='green', fg='white')
+knapp = tkinter.Button(ruta, text='Hej, jag är en knapp', highlightbackground='green', fg='white')
 knapp.pack(fill=tkinter.X)
 
 #Visa fönstret och dess komponenter
