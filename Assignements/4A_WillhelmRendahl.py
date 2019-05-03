@@ -38,7 +38,7 @@ def main():
     global questions, word, word_index, guesses
 
     root.title("De fyra räknesätten")
-    root.geometry("300x200")
+    root.geometry("300x200+250+125")
     
     questions = generate_questions(4)
     guesses.set(0)
