@@ -31,7 +31,6 @@ word_index = tkinter.IntVar()
 score = tkinter.IntVar()
 guesses = tkinter.IntVar()
 
-questions = {}
 number_of_questions = 0
 
 def main():
