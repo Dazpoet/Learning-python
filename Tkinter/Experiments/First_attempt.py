@@ -48,8 +48,8 @@ def build_gui():
     button_frame = ttk.Frame(root)
     button_frame.grid(column = 0, row = 0, sticky = "nw")
 
-    text_frame = ttk.Frame(root)
-    text_frame.grid(column = 2, sticky = "ne")
+    #text_frame = ttk.Frame(root)
+    #text_frame.grid(column = 2, sticky = "ne")
 
     #buttons = [("Uppgift 1","create_game_1"), ("Uppgift 2","create_game_2")]
     buttons = ["Kvadrat", "Kub", "Rektangel", "Rätblock", "Cirkel", "Sfär", "Romb", "Parallellogram", "Liksidig triangel"]
@@ -72,8 +72,8 @@ def build_gui():
     for child in button_frame.winfo_children():
         child.grid_configure(padx = 20, pady = 10)
 
-    for child in text_frame.winfo_children():
-        child.grid_configure(padx = 20, pady = 20)
+    #for child in text_frame.winfo_children():
+    #    child.grid_configure(padx = 20, pady = 20)
 
 def main():
     build_gui()
