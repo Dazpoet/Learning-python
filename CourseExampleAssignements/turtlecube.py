@@ -6,7 +6,7 @@ import turtle
 #Name my turtle
 nils = turtle.Turtle()
 
-def draw_square(startx,starty): #Given a starting position this draws a cube with each corner going to the left
+def draw_square(startx,starty): #Given a starting position in the form x,y this draws a cube with each corner going to the left
     nils.up() #Make sure we don't draw any unnecessary lines
     nils.setpos(startx,starty) #Set nils to the correct position
     nils.setheading(0) #Set nils to the expected heading
