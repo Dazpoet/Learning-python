@@ -8,14 +8,14 @@ class square:
         self.width = w
         self.area = A
         if type(l) == None:
-            self.length = calculate_length()
+            self.length = self.calculate_length()
         else:
             self.length = l
 
-    def area(self):
+    def calculate_area(self):
         return self.length * self.width
     
-    def circumference(self):
+    def calculate_circumference(self):
         return 2*(self.length + self.width)
     
     def calculate_length(self):
@@ -40,7 +40,7 @@ def main():
     rectangle = square(2,6)
     triangular_shape = triangle(3,4)
 
-    print(f"The rectangle with lenght {rectangle.length} and width of {rectangle.width} has an area of {rectangle.area()} and a circumference of {rectangle.circumference()}")
+    print(f"The rectangle with lenght {rectangle.length} and width of {rectangle.width} has an area of {rectangle.calculate_area()} and a circumference of {rectangle.calculate_circumference()}")
 
     print(triangular_shape.area())
     print(triangular_shape.circumference())
