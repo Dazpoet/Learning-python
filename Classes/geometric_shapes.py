@@ -41,7 +41,5 @@ def main():
     print(triangular_shape.area())
     print(triangular_shape.circumference())
 
-    assert rectangle.area() > triangular_shape.area() ""
-
 if __name__ == "__main__":
     main()
