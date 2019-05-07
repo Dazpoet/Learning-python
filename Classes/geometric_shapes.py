@@ -12,10 +12,10 @@ class square:
         return self.length * self.width
     
     def circumference(self):
-        return self.length * 2 + self.width * 2
+        return 2*(self.length + self.width)
     
-    def length(self):
-        return self.area / self.width
+    #def length(self):
+    #    return self.area / self.width
 
 class triangle:
     def __init__(self, b, h):
