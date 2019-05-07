@@ -4,18 +4,22 @@
 import math
 
 class square:
-    def __init__(self, l, w):
-        self.length = l
+    def __init__(self, l=None, w=None, A=None):
         self.width = w
-    
+        self.area = A
+        if type(l) == None:
+            self.length = calculate_length()
+        else:
+            self.length = l
+
     def area(self):
         return self.length * self.width
     
     def circumference(self):
         return 2*(self.length + self.width)
     
-    #def length(self):
-    #    return self.area / self.width
+    def calculate_length(self):
+        return self.area / self.width
 
 class triangle:
     def __init__(self, b, h):
