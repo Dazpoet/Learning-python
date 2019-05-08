@@ -71,11 +71,10 @@ class Square:
         
         length = None
         constant = self.perimeter/(4*self.area)
-        d = math.sqrt((-self.perimeter)**2 - 4*(2*2*self.area))
-
+        d = math.sqrt((-(self.perimeter)**2 - 4*(2*2*self.area)))
+        
         if d < 0:
-            raise ValueError("Calculations resulted in complex roots when attempting to calculate lenght")
-            sys.exit(1) #Something has gone horribly wrong
+            sys.exit("Why are there complex roots in my lenghts?")
         elif d == 0:
             length = constant
         else:
