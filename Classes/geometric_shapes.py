@@ -4,7 +4,7 @@
 import math
 import sys
 
-class Square:
+class Rectangle:
     def __init__(self, l=None, w=None, A=None, P=None):
         self.length = l
         self.width = w
@@ -74,7 +74,7 @@ class Square:
         d = math.sqrt((-(self.perimeter)**2 - 4*(2*2*self.area)))
         
         if d < 0:
-            sys.exit("Why are there complex roots in my lenghts?")
+            sys.exit("Why are there complex roots in my lengths?")
         elif d == 0:
             length = constant
         else:
