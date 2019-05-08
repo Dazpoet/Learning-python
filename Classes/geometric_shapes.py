@@ -3,23 +3,42 @@
 
 import math
 
-class square:
-    def __init__(self, l=None, w=None, A=None):
+class Square:
+    def __init__(self, l=None, w=None, A=None, P=None):
+        self.length = l
         self.width = w
         self.area = A
-        if type(l) == None:
-            self.length = self.calculate_length()
-        else:
-            self.length = l
+        self.perimeter = P
 
+        if not l:
+            self.length = self.calculate_length()
+        if not w:
+            self.width = self.calculate_width()        
+        if not A:
+            self.area = self.calculate_area()
+        if not P:
+            self.perimeter = self.calculate_perimeter()
+    
+    def calculate_length(self):
+        if bool(self.area) and bool(self.width):
+            return self.area / self.width
+        elif bool(self.perimeter) and bool(self.width):
+            return (self.perimeter / 2) - self.width
+        elif bool(self.perimeter) and bool(self.area):
+            return
+    
+    def calculate_width(self):
+        if bool(self.area) and bool(self.length):
+            return self.area / self.length
+        elif bool(self.perimeter) and bool(self.length):
+            return (self.perimeter / 2) - self.length
+    
     def calculate_area(self):
         return self.length * self.width
     
-    def calculate_circumference(self):
+    def calculate_perimeter(self):
         return 2*(self.length + self.width)
-    
-    def calculate_length(self):
-        return self.area / self.width
+
 
 class triangle:
     def __init__(self, b, h):
@@ -37,13 +56,7 @@ class triangle:
         return circumference
 
 def main():
-    rectangle = square(2,6)
-    triangular_shape = triangle(3,4)
-
-    print(f"The rectangle with lenght {rectangle.length} and width of {rectangle.width} has an area of {rectangle.calculate_area()} and a circumference of {rectangle.calculate_circumference()}")
-
-    print(triangular_shape.area())
-    print(triangular_shape.circumference())
+    pass
 
 if __name__ == "__main__":
     main()
