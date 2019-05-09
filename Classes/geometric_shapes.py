@@ -90,7 +90,7 @@ class Rectangle:
         return length
 
 
-class triangle:
+class Triangle:
     def __init__(self, b, h):
         self.base = b
         self.height = h
