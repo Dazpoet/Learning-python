@@ -25,16 +25,16 @@ class Rectangle:
             return self.area / self.width
         elif self.perimeter and self.width:
             return (self.perimeter / 2) - self.width
-        elif self.area or self.perimeter:  #if only one of these is given we threat it as a square due to lack of sufficient solving methods
-            if self.area:
-                return math.sqrt(self.area)
-            if self.perimeter:
-                return self.perimeter / 4
         elif self.perimeter and self.area:
             length = self.calculate_length_from_area_and_perimeter()
             return length
         elif self.width: #If we only get a width we consider it a square and set L = W
             return self.width
+        elif self.area or self.perimeter:  #if only one of these is given we threat it as a square due to lack of sufficient solving methods
+            if self.area:
+                return math.sqrt(self.area)
+            if self.perimeter:
+                return self.perimeter / 4
     
     def calculate_width(self):
         if self.area and self.length:
@@ -51,50 +51,10 @@ class Rectangle:
         return 2*(self.length + self.width)
     
     def calculate_length_from_area_and_perimeter(self):
-        #A quadritic expression ax^2 + bx + c = 0
-        #has the known solution x = (-b +-sqrt(b^2-4ac))/2a
-        #
-        #if the discriminant (sqrt(b^2-4a)) < 0 there are no real roots
-        #elif the discriminant = 0 there is a single root
-        #else there are two solutions such that
-        #x1 = -b/2a + discriminant
-        #x2 = -b/2a - discriminant
-        #
-        #Given an area and perimeter of a square such that
-        #1. P = 2L + 2W
-        #and
-        #2. A = L * W
-        #
-        #1. gives 3.
-        #W = (P-2L)/2
-        #
-        #3. in 2. gives
-        #A/L = (P-2L)/2
-        #which after multiplying with L on both sides give
-        #
-        #2L^2 - PL + 2A = 0
-        #Which is a quadratic equation, since we deal with
-        #geometric shapes no complex solutions will be useful
-        
-        length = None
-        constant = self.perimeter/(4*self.area)
-        d = math.sqrt((-(self.perimeter)**2 - 4*(2*2*self.area)))
-        
-        if d < 0:
-            raise ValueError("Complex roots found when calculating length")
-        elif d == 0:
-            length = constant
-        else:
-            length1 = constant + d
-            length2 = constant - d
-            if length1 < 0:         #We don't want negative lengths
-                length = length2
-            elif length2 < 0:
-                raise ValueError("No positive length found")
-            else:
-                length = length1    #Length1 always wins if both at positive
-        
-        return length
+        for l in range(self.area):
+            for w in range(self.perimeter):
+                if (l * w == self.area) and (2 * l + 2 * w == self.perimeter):
+                    return l
 
 
 class Triangle:
