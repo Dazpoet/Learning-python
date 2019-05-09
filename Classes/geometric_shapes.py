@@ -81,7 +81,7 @@ class Rectangle:
         d = math.sqrt((-(self.perimeter)**2 - 4*(2*2*self.area)))
         
         if d < 0:
-            sys.exit("Why are there complex roots in my lengths?")
+            raise ValueError("Complex roots found when calculating length")
         elif d == 0:
             length = constant
         else:
@@ -90,7 +90,7 @@ class Rectangle:
             if length1 < 0:         #We don't want negative lengths
                 length = length2
             elif length2 < 0:
-                sys.exit("Why are there no positive lengths?")
+                raise ValueError("No positive length found")
             else:
                 length = length1    #Length1 always wins if both at positive
         
