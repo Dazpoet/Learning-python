@@ -25,17 +25,24 @@ class Rectangle:
             return self.area / self.width
         elif self.perimeter and self.width:
             return (self.perimeter / 2) - self.width
-        elif self.area:
-            return math.sqrt(self.area) #This should only ever trigger when we deal with perfect squares, otherways at least perimeter and area MUST be given
+        elif self.area or self.perimeter:  #if only one of these is given we threat it as a square due to lack of sufficient solving methods
+            if self.area:
+                return math.sqrt(self.area)
+            if self.perimeter:
+                return self.perimeter / 4
         elif self.perimeter and self.area:
             length = self.calculate_length_from_area_and_perimeter()
             return length
+        elif self.width: #If we only get a width we consider it a square and set L = W
+            return self.width
     
     def calculate_width(self):
         if self.area and self.length:
             return self.area / self.length
         elif self.perimeter and self.length:
             return (self.perimeter / 2) - self.length
+        elif not self.perimeter and not self.area: #If we only get a lenght we consider it a square and set W = L
+            return self.length
     
     def calculate_area(self):
         return self.length * self.width
