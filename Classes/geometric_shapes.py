@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import math
-import sys
 
 class Rectangle:
     def __init__(self, l=None, w=None, A=None, P=None):
