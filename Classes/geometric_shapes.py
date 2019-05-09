@@ -82,6 +82,8 @@ class Rectangle:
             length2 = constant - d
             if length1 < 0:         #We don't want negative lengths
                 length = length2
+            elif length2 < 0:
+                sys.exit("Why are there no positive lengths?")
             else:
                 length = length1    #Length1 always wins if both at positive
         
