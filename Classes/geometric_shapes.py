@@ -3,6 +3,8 @@
 
 import math
 
+#TODO: Consider negative numbers
+
 class Rectangle:
     def __init__(self, l=None, w=None, A=None, P=None):
         self.length = l
