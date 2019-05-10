@@ -4,6 +4,7 @@
 import math
 
 #TODO: Consider negative numbers
+#TODO: Add x0, y0 as attributes
 
 class Rectangle:
     def __init__(self, l=None, w=None, A=None, P=None):
