@@ -60,9 +60,11 @@ class Rectangle:
 
 
 class Triangle:
-    def __init__(self, b, h):
-        self.base = b
-        self.height = h
+    def __init__(self, a, b, c, height): #What is height in this context?
+        self.side_a = a
+        self.side_b = b
+        self.side_c = c
+        self.height = height
     
     def area(self):
         area = (self.base * self.height) / 2
