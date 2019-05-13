@@ -61,7 +61,7 @@ class Rectangle:
             self.perimeter = self.calculate_perimeter()
         
         if None in [self.length, self.width]:
-            raise ValueError("There's a None in my sides")
+            raise ValueError("There's a None in my rectangles sides")
     
     def calculate_length(self):
         length = None
