@@ -35,7 +35,7 @@ class Circle:
         return radius
     
     def calculate_area(self):
-        area = math.pi * r**2
+        area = math.pi * self.radius**2
 
         return area
 
