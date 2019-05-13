@@ -6,6 +6,44 @@ import math
 #TODO: Consider negative numbers
 #TODO: Add x0, y0 as attributes
 
+class Circle:
+    def __init__(self, r=None, A=None, C=None):
+        self.radius = r
+        self.diameter = 2*r
+        self.area = A
+        self.circumference = C
+
+        if not r:
+            self.radius = self.calculate_radius()
+            self.diameter = 2*self.radius
+        if not A:
+            self.area = self.calculate_area()
+        if not C:
+            self.circumference = self.calculate_circumference()
+
+        if None in [self.radius, self.area, self.circumference]:
+            raise ValueError("There's None in my circle")
+
+    def calculate_radius(self):
+        radius = None
+
+        if self.area:
+            radius = math.sqrt(self.area/math.pi)
+        elif self.circumference:
+            radius = self.circumference/(2*math.pi)
+        
+        return radius
+    
+    def calculate_area(self):
+        area = math.pi * r**2
+
+        return area
+
+    def calculate_circumference(self):
+        circumference = math.pi * 2 * self.radius
+
+        return circumference
+
 class Rectangle:
     def __init__(self, l=None, w=None, A=None, P=None):
         self.length = l
@@ -21,31 +59,41 @@ class Rectangle:
             self.area = self.calculate_area()
         if not P:
             self.perimeter = self.calculate_perimeter()
+        
+        if None in [self.length, self.width]:
+            raise ValueError("There's a None in my sides")
     
     def calculate_length(self):
+        length = None
+
         if self.area and self.width:
-            return self.area / self.width
+            length = self.area / self.width
         elif self.perimeter and self.width:
-            return (self.perimeter / 2) - self.width
+            length = (self.perimeter / 2) - self.width
         elif self.perimeter and self.area:
             length = self.calculate_length_from_area_and_perimeter()
-            return length
         elif self.width: #If we only get a width we consider it a square and set L = W
-            return self.width
+            length = self.width
         elif self.area or self.perimeter:  #if only one of these is given we threat it as a square due to lack of sufficient solving methods
             if self.area:
-                return math.sqrt(self.area)
+                length = math.sqrt(self.area)
             if self.perimeter:
-                return self.perimeter / 4
-    
+                length = self.perimeter / 4
+
+        return length
+
     def calculate_width(self):
+        width = None
+        
         if self.area and self.length:
-            return self.area / self.length
+            width = self.area / self.length
         elif self.perimeter and self.length:
-            return (self.perimeter / 2) - self.length
+            width = (self.perimeter / 2) - self.length
         elif not self.perimeter and not self.area: #If we only get a lenght we consider it a square and set W = L
-            return self.length
-    
+            width = self.length
+
+        return width
+        
     def calculate_area(self):
         return self.length * self.width
     
@@ -67,14 +115,10 @@ class Triangle:
         self.height = height
     
     def area(self):
-        area = (self.base * self.height) / 2
-        return area
+        pass
     
     def circumference(self):
-        side_length = math.sqrt(((self.base)/2)**2 + self.height**2)
-        circumference = side_length*2 + self.base
-
-        return circumference
+        pass
 
 def main():
     pass
