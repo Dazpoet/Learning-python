@@ -5,11 +5,13 @@ import math
 
 #TODO: Consider negative numbers
 #TODO: Add x0, y0 as attributes
+#TODO: Consider precision and rounding, done in class or when using the results?
 
 class Circle:
     def __init__(self, r=None, A=None, C=None):
         self.radius = r
-        self.diameter = 2*r
+        if r:
+            self.diameter = 2*r
         self.area = A
         self.circumference = C
 
