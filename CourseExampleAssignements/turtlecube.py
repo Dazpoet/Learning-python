@@ -27,13 +27,13 @@ def draw_diagonals(positions): #Given a list of tuples containing positions in x
         nils.forward(50) #Draw the line
 
 def main():
-    corner_positions = [(0,0), (100,0), (0,100), (100,100)]
+	corner_positions = [(0,0), (100,0), (0,100), (100,100)]
 
-    draw_square(0,0)
-    draw_diagonals(corner_positions)
-    draw_square(35.36,35.36) #These were found using nils.pos() from the first corner, if we don't start here it looks bad
+	draw_square(0,0)
+	draw_diagonals(corner_positions)
+	draw_square(35.36,35.36) #These were found using nils.pos() from the first corner, if we don't start here it looks bad
 
-    turtle.exitonclick()
+	turtle.exitonclick()
 
 if __name__ == "__main__":
     main()
