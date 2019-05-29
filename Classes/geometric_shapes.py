@@ -111,7 +111,11 @@ class Rectangle:
         disc = math.sqrt(((self.perimeter**2)/16)-self.area)
 
         value_1 = constant + disc
-        #value_2 = constant - disc #This isn't needed but I'm a completionist
+        value_2 = constant - disc
+
+        #Make sure everything seems correct
+        assert value_1 * value_2 == self.area
+        assert 2*value_1 + 2*value_2 == self.perimeter
 
         return value_1
 
