@@ -98,7 +98,25 @@ class Rectangle:
     
     def calculate_perimeter(self):
         return 2*(self.length + self.width)
-    
+
+    def calculate_length_from_area_and_perimeter(self):
+        #Since we have two unknowns and two known formulas
+        #A = l * b
+        #P = 2*(l * b)
+        #we can find that
+        #l = P/4 +- sqrt(P^2/16 - A)
+        #where the two solutions will be the length and width of the rectangle
+
+        constant = self.perimeter/4
+        disc = math.sqrt(((self.perimeter**2)/16)-self.area)
+
+        value_1 = constant + disc
+        #value_2 = constant - disc #This isn't needed but I'm a completionist
+
+        return value_1
+
+
+"""    
     def calculate_length_from_area_and_perimeter(self): #We never want to end up here! This is a horrible place and I hope you brought scotch
         #TODO: Refactor this part to avoid code-reuse
         #TODO: Try to figure out a better logic for this entire function
@@ -118,13 +136,10 @@ class Rectangle:
                     if (l * w == area) and (2 * l + 2 * w == perimeter):
                         return l
 
-        def amount_of_decimals(num):
+        def amount_of_decimals(num): #returns the amount of decimals in a float
             amount = len(str(num)) - str(num).find(".") - 1 #-1 accounts for starting the count at 0
 
             return amount
-
-        def calculate_length_from_perimeter(num):
-            pass
 
         if isinstance(self.area, int) and isinstance(self.perimeter, int): #If both area and perimeter are ints this is easy-peasy
             l = find_length(self.area, self.perimeter)
@@ -149,7 +164,7 @@ class Rectangle:
             #Set the stage for the coming if-logic
             decimals_in_area, decimals_in_perimeter, perimeter_int, area_int = None, None, None, None
 
-            #Check if we can lazy convert the perimter to an int
+            #Check if we can lazy convert the perimeter to an int
             try:
                 perimeter_int = int(str(self.perimeter))
             except ValueError:
@@ -180,7 +195,7 @@ class Rectangle:
                     correct_l = l * (10**(-exp_perimeter))
 
                     return correct_l
-                else:
+                else: #when the area has more decimals
                     pass
             elif decimals_in_perimeter and not decimals_in_area: #If only the perimeter is a float we multiply and use the same method as when one was a float, this is code re-use and needs to be refactored
                 exp_perimeter = decimals_in_perimeter
@@ -198,7 +213,7 @@ class Rectangle:
                 return correct_l
             elif decimals_in_area and not decimals_in_perimeter: #This is a tricky case which I haven't solved yet so for now it raises an error
                 raise ValueError("Why are you a bad person, please only use integers for area if the perimeter is an integer")
-
+"""
 
 
 
