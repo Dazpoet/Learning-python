@@ -121,7 +121,7 @@ class Rectangle:
         return value_1
 
 class Triangle:
-    def __init__(self, b=None, h=None, A=None): #Extremely simplified as an example
+    def __init__(self, b=None, h=None, A=None): #Extremely simplified as an example which can then be expanded on further. Triangles are tricky to objectify
         self.base = b
         self.height = h
         self.area = A
