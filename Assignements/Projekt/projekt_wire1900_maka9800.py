@@ -18,23 +18,24 @@ def create_game(n):
 
 def calculate_square():
     def create_object():
+        #Massage the data so the object can be created
         try:
-            l = int(side.get())
+            l = float(side.get())
         except:
             l = None
         
         try:
-            A = int(area.get())
+            A = float(area.get())
         except:
             A = None
-
         try:
-            P = int(perimeter.get())
+            P = float(perimeter.get())
         except:
             P = None
-
-        square=geometric_shapes.Rectangle(l=l, A=A, P=P)
-
+        
+        #Create the square object based on the rectangle class
+        square = geometric_shapes.Rectangle(l=l, A=A, P=P)
+        
         information_window.destroy()
 
         return square
@@ -42,7 +43,27 @@ def calculate_square():
     def inform_user():
         square = create_object()
         print(vars(square))
+    
+    def square_gui(information_window):
+        
+        information_window.title("Mata in information")
 
+        ttk.Label(information_window,text="Sidlängd").grid(column=1, row=1, sticky="w")
+        ttk.Label(information_window,text="Area").grid(column=1, row=2, sticky="w")
+        ttk.Label(information_window,text="Omkrets").grid(column=1, row=3, sticky="w")
+
+        ttk.Label(information_window,text="l.e.").grid(column=3, row=1, sticky="E")
+        ttk.Label(information_window,text="a.e.").grid(column=3, row=2, sticky="E")
+        ttk.Label(information_window,text="l.e.").grid(column=3, row=3, sticky="E")
+
+        ttk.Entry(information_window, width=7,textvariable=side).grid(column=2, row=1)
+        ttk.Entry(information_window, width=7,textvariable=area).grid(column=2, row=2)
+        ttk.Entry(information_window, width=7,textvariable=perimeter).grid(column=2, row=3)
+
+        ttk.Button(information_window,text="Beräkna",command=inform_user).grid(column=2, row=4)
+
+        for child in information_window.winfo_children():
+            child.grid_configure(padx=20,pady=20)
 
 
     side = tkinter.StringVar()
@@ -50,24 +71,10 @@ def calculate_square():
     perimeter = tkinter.StringVar()
 
     information_window = tkinter.Toplevel(root)
-    information_window.title("Mata in information")
 
-    ttk.Label(information_window,text="Sidlängd").grid(column=1, row=1, sticky="w")
-    ttk.Label(information_window,text="Area").grid(column=1, row=2, sticky="w")
-    ttk.Label(information_window,text="Omkrets").grid(column=1, row=3, sticky="w")
+    square_gui(information_window)
 
-    ttk.Label(information_window,text="l.e.").grid(column=3, row=1, sticky="E")
-    ttk.Label(information_window,text="a.e.").grid(column=3, row=2, sticky="E")
-    ttk.Label(information_window,text="l.e.").grid(column=3, row=3, sticky="E")
 
-    side_entry = ttk.Entry(information_window, width=7,textvariable=side).grid(column=2, row=1)
-    area_entry = ttk.Entry(information_window, width=7,textvariable=area).grid(column=2, row=2)
-    perimeter_entry = ttk.Entry(information_window, width=7,textvariable=perimeter).grid(column=2, row=3)
-
-    ttk.Button(information_window,text="Beräkna",command=inform_user).grid(column=2, row=4)
-
-    for child in information_window.winfo_children():
-        child.grid_configure(padx=20,pady=20)
 
 def create_game_1():
     window = tkinter.Toplevel(root)
