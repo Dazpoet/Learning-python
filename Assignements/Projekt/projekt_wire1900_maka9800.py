@@ -42,7 +42,7 @@ def calculate_square():
 
     def inform_user():
         square = create_object()
-        print(vars(square))
+        print(vars(square)) #This is only for logging purposes and should be removed
     
     def square_gui(information_window):
         
