@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import math
+import random
 
 #TODO: Consider negative numbers
 #TODO: Add x0, y0 as attributes
@@ -120,20 +121,35 @@ class Rectangle:
         return value_1
 
 class Triangle:
-    def __init__(self, a, b, c, height): #What is height in this context?
-        self.side_a = a
-        self.side_b = b
-        self.side_c = c
-        self.height = height
-    
-    def area(self):
-        pass
-    
-    def circumference(self):
-        pass
+    def __init__(self, b=None, h=None, A=None): #Extremely simplified as an example
+        self.base = b
+        self.height = h
+        self.area = A
 
-def main():
-    pass
+        if not b:
+            self.base = self.calculate_base
+        if not h:
+            self.height = self.calculate_height
+        if not A:
+            self.area = self.calculate_area
+    
+    def calculate_base(self):
+        return 2*self.area/self.height
+
+    def calculate_height(self):
+        return 2*self.area/self.base
+
+    def calculate_area(self):
+        return (self.base*self.height)/2
 
 if __name__ == "__main__":
-    main()
+    texts = [
+        "Your mother was a hamster and your father smelt of elderberries",
+        "Do you find it risible when I say the name... Biggus... Dickus...?",
+        "Nobody expects the spanish inquisition!",
+        "You must cut down the mightiest tree in the forest with...a herring!",
+        "*fishslap to the face*",
+        "No that's not dead, it's err... resting",
+        "Bunch of monkeys on the ceiling, sir! Grab your egg-and-fours and let's get the bacon delivered!"
+        ]
+    print(random.choice(texts))
