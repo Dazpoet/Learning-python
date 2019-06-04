@@ -149,7 +149,6 @@ if __name__ == "__main__":
         "Nobody expects the spanish inquisition!",
         "You must cut down the mightiest tree in the forest with...a herring!",
         "*fishslap to the face*",
-        "No that's not dead, it's err... resting",
         "Bunch of monkeys on the ceiling, sir! Grab your egg-and-fours and let's get the bacon delivered!"
         ]
     print(random.choice(texts))
