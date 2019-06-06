@@ -13,6 +13,12 @@ root = tkinter.Tk()
 def choose_shape(n):
     if n == "Kvadrat":
         calculate_square()
+    elif n == "Rektangel":
+        calculate_rectangle():
+    elif n == "Triangel":
+        calculate_isoceles_triangle()
+    elif n == "Cirkel":
+        calculate_circle()
 
 def calculate_rectangle():
     pass
@@ -96,7 +102,6 @@ def calculate_square():
         square_losning.config(font = ("Arial", 12), anchor = "n", justify = "left", width = 40)
         square_losning.config(background = "white", relief = "sunken", wraplength = 410)
         square_losning.grid(column = 2, row = 0, rowspan = 10, sticky = "news", padx = 10, pady = 20)
-
 
     def square_gui(information_window):
         
