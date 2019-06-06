@@ -20,18 +20,17 @@ def calculate_square():
             l = float(side.get())
         except:
             l = None
-        
-        try:
-            A = float(area.get())
-        except:
-            A = None
         try:
             P = float(perimeter.get())
         except:
             P = None
+        try:
+            A = float(area.get())
+        except:
+            A = None
         
         #Create the square object based on the rectangle class
-        square = geometric_shapes.Rectangle(l=l, A=A, P=P)
+        square = geometric_shapes.Rectangle(l=l, P=P, A=A)
         
         information_window.destroy()
 
