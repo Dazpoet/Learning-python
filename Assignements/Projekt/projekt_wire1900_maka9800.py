@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+#TODO: All indata, utdata windows could probably be done in an OOP manner to shorten the code
+
 import tkinter
 import geometric_shapes
 from tkinter import ttk, messagebox
@@ -12,66 +14,111 @@ def choose_shape(n):
     if n == "Kvadrat":
         calculate_square()
 
+def calculate_rectangle():
+    pass
+
+def calculate_circle():
+    pass
+
+def calculate_isoceles_triangle():
+    pass
+
 def calculate_square():
     def create_object():
         #Massage the data so the object can be created
         #TODO: Figure out if this can be done in a loop instead
         try:
-            l = float(side.get())
+            l = float(square_side.get())
         except:
             l = None
         try:
-            P = float(perimeter.get())
+            P = float(square_perimeter.get())
         except:
             P = None
         try:
-            A = float(area.get())
+            A = float(square_area.get())
         except:
             A = None
         
         #Create the square object based on the rectangle class
         square = geometric_shapes.Rectangle(l=l, P=P, A=A)
         
-        information_window.destroy()
+        square_input_window.destroy()
 
         return square
 
     def inform_user():
         square = create_object()
-        print(vars(square)) #This is only for logging purposes and should be removed once we get further
         #TODO: Add drawing and stuff here
         #TODO: Create function that generate the needed text
 
+        #Create the window that displays the square and calculations to the user
+        square_window = tkinter.Toplevel(root)
+        
+        #Set the windows parameters
+        square_window.title("Utdata")
+        square_window.geometry("800x380+250+125")
+
+        #Create the drawing canvas and set its parameters
+        square_canvas = tkinter.Canvas(square_window,width=340, height=340, relief="sunken", bg="white")
+        square_canvas.grid(column=0, row=0, sticky="nw", padx=10, pady=20)
+
+        #Create the square (rectangle)
+        #Since all squares are similar we can hard-code this shape and it'll always work
+        square_canvas.create_rectangle(80,80,260,260,width=2,fill="red")
+
+        #Create the widgets that display the sidelength
+        square_side1_widget = tkinter.Label(square_canvas, text=square.length)
+        square_side2_widget = tkinter.Label(square_canvas, text=square.length)
+
+        #Do some mathmagical things to make the informations position mostly correct
+        #Works for numbers up to 6 digits before they move out of scope
+        #TODO: Add logic to make this behave differently when there is more than 6 digits
+        x1 = 70 - 5*len(str(square.length))
+
+        #Define the widgets position inside the canvas
+        square_canvas.create_window(x1,170,window=square_side1_widget)
+        square_canvas.create_window(170,280,window=square_side2_widget)
+
+        #Configure the text
+        for child in [square_side1_widget, square_side2_widget]:
+            child.config(font = ("Arial", 18))
+            child.config(fg="white",bg="black")
+
+
     def square_gui(information_window):
         
-        information_window.title("Mata in information")
+        information_window.title("Indata")
 
         #Create labels and entries for each datapoint we want to collect
         ttk.Label(information_window,text="Sidlängd").grid(column=1, row=1, sticky="w")
-        ttk.Entry(information_window, width=7,textvariable=side).grid(column=2, row=1)
+        ttk.Entry(information_window, width=7,textvariable=square_side).grid(column=2, row=1)
         ttk.Label(information_window,text="l.e.").grid(column=3, row=1, sticky="E")
         
         ttk.Label(information_window,text="Omkrets").grid(column=1, row=2, sticky="w")
-        ttk.Entry(information_window, width=7,textvariable=perimeter).grid(column=2, row=2)
+        ttk.Entry(information_window, width=7,textvariable=square_perimeter).grid(column=2, row=2)
         ttk.Label(information_window,text="l.e.").grid(column=3, row=2, sticky="E")
 
         ttk.Label(information_window,text="Area").grid(column=1, row=3, sticky="w")
-        ttk.Entry(information_window, width=7,textvariable=area).grid(column=2, row=3)
+        ttk.Entry(information_window, width=7,textvariable=square_area).grid(column=2, row=3)
         ttk.Label(information_window,text="a.e.").grid(column=3, row=3, sticky="E")
 
         ttk.Button(information_window,text="Beräkna",command=inform_user).grid(column=2, row=4)
 
+        #Make the GUI nice and roomy
         for child in information_window.winfo_children():
             child.grid_configure(padx=20,pady=20)
 
+    #Add variables for entry and running logic
+    square_side = tkinter.StringVar()
+    square_area = tkinter.StringVar()
+    square_perimeter = tkinter.StringVar()
 
-    side = tkinter.StringVar()
-    area = tkinter.StringVar()
-    perimeter = tkinter.StringVar()
+    #Create the input window
+    square_input_window = tkinter.Toplevel(root)
 
-    information_window = tkinter.Toplevel(root)
-
-    square_gui(information_window)
+    #Run the GUI
+    square_gui(square_input_window)
 
 def build_gui():
     root.title("Wille och Mackans geometriprogram")
@@ -80,7 +127,16 @@ def build_gui():
     button_frame = ttk.Frame(root)
     button_frame.grid(column = 0, row = 0, sticky = "nw")
 
-    buttons = ["Kvadrat", "Kub", "Rektangel", "Rätblock", "Cirkel", "Sfär", "Romb", "Parallellogram", "Liksidig triangel"]
+    buttons = ["Kvadrat",
+            "Kub",
+            "Rektangel",
+            "Rätblock",
+            "Cirkel",
+            "Sfär",
+            "Romb",
+            "Parallellogram",
+            "Triangel"
+            ]
 
     for index, button in enumerate(buttons):
         message = button
