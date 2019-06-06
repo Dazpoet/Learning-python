@@ -14,7 +14,7 @@ def choose_shape(n):
     if n == "Kvadrat":
         calculate_square()
     elif n == "Rektangel":
-        calculate_rectangle():
+        calculate_rectangle()
     elif n == "Triangel":
         calculate_isoceles_triangle()
     elif n == "Cirkel":
@@ -53,8 +53,59 @@ def calculate_square():
 
         return square
     
-    def square_generate_text():
-        return "Celebrate good times come on"
+    def square_generate_text(square):
+        def generate_t2():
+            if square_side.get():
+                return f"L = Längd = {round(square.length, 2)} l.e.\n"
+            else:
+                return ""
+
+        def generate_t3():
+            if square_perimeter.get():
+                return f"O = Omkrets = {round(square.perimeter, 2)} l.e.\n\n"
+            else:
+                return""
+        
+        def generate_t4():
+            if square_area.get():
+                return f"A = Area = {round(square.area, 2)} a.e.\n\n"
+            else:
+                return""
+        
+        def generate_t6():
+            if not square_side.get() and not square_area.get():
+                return f"s = {round(square.perimeter, 2)} / 4 = {round(square.length, 2)} l.e."
+            elif not square_side.get() and not square_perimeter.get():
+                return f"s = \u221A{round(square.area, 2)} = {round(square.length, 2)} l.e."
+            elif not square_side.get():
+                return f"s = {square.perimeter} / 4 = {round(square.length, 2)} l.e."
+            else:
+                return ""
+        
+        t_1 = "Värden\n\n"
+        
+        t_2 = generate_t2()
+    
+        t_3 = generate_t3()
+    
+        t_4 = generate_t4()
+        
+        t_5 = "Formler\n\n"\
+            "O = Omkrets = 4 * s = s + s + s + s\n"\
+            "A = Area = s\u00b2 = s * s\n\n"\
+            "s = sidlängd\n\n"\
+            "s = Omkrets/4\n"\
+            "eller\n"\
+            "s = \u221AArea\n\n"\
+            "Beräkning\n\n"\
+            f"O = 4 * {round(square.length, 2)} = {round(square.perimeter, 2)} l.e.\n\n"\
+            f"A = {round(square.length, 2)} * {round(square.length, 2)} = {round(square.area, 2)} a.e.\n\n"
+
+        t_6 = generate_t6()
+
+        losning = t_1 + t_2 + t_3 + t_4 + t_5 + t_6
+
+        return losning
 
     def inform_user():
         square = create_object()
@@ -77,8 +128,8 @@ def calculate_square():
         square_canvas.create_rectangle(80,80,260,260,width=2,fill="red")
 
         #Create the widgets that display the sidelength
-        square_side1_widget = tkinter.Label(square_canvas, text=square.length)
-        square_side2_widget = tkinter.Label(square_canvas, text=square.length)
+        square_side1_widget = tkinter.Label(square_canvas, text=round(square.length, 2))
+        square_side2_widget = tkinter.Label(square_canvas, text=round(square.length, 2))
 
         #Do some mathmagical things to make the informations position mostly correct
         #Works for numbers up to 6 digits before they move out of scope
@@ -95,15 +146,15 @@ def calculate_square():
             child.config(fg="white",bg="black")
         
         #Generate the informational text with solution to the problem
-        square_solution = square_generate_text()
+        square_solution = square_generate_text(square)
 
         #Create a label to put the solution into and configure it
         square_losning = ttk.Label(square_window, text = square_solution)
         square_losning.config(font = ("Arial", 12), anchor = "n", justify = "left", width = 40)
         square_losning.config(background = "white", relief = "sunken", wraplength = 410)
-        square_losning.grid(column = 2, row = 0, rowspan = 10, sticky = "news", padx = 10, pady = 20)
+        square_losning.grid(column = 1, row = 0, sticky = "news", padx = 10, pady = 20)
 
-    def square_gui(information_window):
+    def square_gui(information_window): #Creates a gui for input data and collection of said data
         
         information_window.title("Indata")
 
