@@ -62,17 +62,29 @@ def calculate_square():
 
         def generate_t3():
             if square_perimeter.get():
-                return f"O = Omkrets = {round(square.perimeter, 2)} l.e.\n\n"
+                return f"O = Omkrets = {round(square.perimeter, 2)} l.e.\n"
             else:
                 return""
         
         def generate_t4():
             if square_area.get():
-                return f"A = Area = {round(square.area, 2)} a.e.\n\n"
+                return f"A = Area = {round(square.area, 2)} a.e.\n"
             else:
                 return""
         
         def generate_t6():
+            if not square_side.get() and not square_area.get():
+                return "s = sidlängd = Omkrets / 4\n"
+            elif not square_side.get() and not square_perimeter.get():
+                return "s = sidlängd = \u221AArea\n"
+            elif not square_side.get():
+                return "s = sidlängd = Omkrets / 4\n"\
+                    "eller\n"\
+                    "s = \u221AArea"
+            else:
+                return ""
+
+        def generate_t7():
             if not square_side.get() and not square_area.get():
                 return f"s = {round(square.perimeter, 2)} / 4 = {round(square.length, 2)} l.e."
             elif not square_side.get() and not square_perimeter.get():
@@ -82,7 +94,7 @@ def calculate_square():
             else:
                 return ""
         
-        t_1 = "Värden\n\n"
+        t_1 = "\nVärden\n\n"
         
         t_2 = generate_t2()
     
@@ -90,20 +102,19 @@ def calculate_square():
     
         t_4 = generate_t4()
         
-        t_5 = "Formler\n\n"\
+        t_5 = "\n\nFormler\n\n"\
             "O = Omkrets = 4 * s = s + s + s + s\n"\
-            "A = Area = s\u00b2 = s * s\n\n"\
-            "s = sidlängd\n\n"\
-            "s = Omkrets/4\n"\
-            "eller\n"\
-            "s = \u221AArea\n\n"\
-            "Beräkning\n\n"\
+            "A = Area = s\u00b2 = s * s\n"\
+        
+        t_6 = generate_t6()
+
+        t_7 = "\n\nBeräkning\n\n"\
             f"O = 4 * {round(square.length, 2)} = {round(square.perimeter, 2)} l.e.\n\n"\
             f"A = {round(square.length, 2)} * {round(square.length, 2)} = {round(square.area, 2)} a.e.\n\n"
 
-        t_6 = generate_t6()
+        t_8 = generate_t7()
 
-        losning = t_1 + t_2 + t_3 + t_4 + t_5 + t_6
+        losning = t_1 + t_2 + t_3 + t_4 + t_5 + t_6 + t_7 + t_8
 
         return losning
 
