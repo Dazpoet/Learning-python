@@ -46,6 +46,9 @@ def calculate_square():
         square_input_window.destroy()
 
         return square
+    
+    def square_generate_text():
+        return "Celebrate good times come on"
 
     def inform_user():
         square = create_object()
@@ -80,10 +83,19 @@ def calculate_square():
         square_canvas.create_window(x1,170,window=square_side1_widget)
         square_canvas.create_window(170,280,window=square_side2_widget)
 
-        #Configure the text
+        #Configure the textwidgets
         for child in [square_side1_widget, square_side2_widget]:
             child.config(font = ("Arial", 18))
             child.config(fg="white",bg="black")
+        
+        #Generate the informational text with solution to the problem
+        square_solution = square_generate_text()
+
+        #Create a label to put the solution into and configure it
+        square_losning = ttk.Label(square_window, text = square_solution)
+        square_losning.config(font = ("Arial", 12), anchor = "n", justify = "left", width = 40)
+        square_losning.config(background = "white", relief = "sunken", wraplength = 410)
+        square_losning.grid(column = 2, row = 0, rowspan = 10, sticky = "news", padx = 10, pady = 20)
 
 
     def square_gui(information_window):
