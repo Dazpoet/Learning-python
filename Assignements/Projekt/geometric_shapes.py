@@ -9,6 +9,7 @@ import random
 #TODO: Consider precision and rounding, done in class or when using the results?
 
 class Circle:
+    #TODO: Consider using PI = 3.14 instead, math.pi is a lot more precise than most grade 9 textbooks account for
     def __init__(self, r=None, A=None, C=None):
         self.radius = r
         if r:
@@ -25,8 +26,6 @@ class Circle:
             self.circumference = self.calculate_circumference()
 
     def calculate_radius(self):
-        radius = None
-
         if self.area:
             radius = math.sqrt(self.area/math.pi)
         elif self.circumference:
@@ -64,8 +63,6 @@ class Rectangle:
             raise ValueError("There's a None side in this rectangle")
     
     def calculate_length(self):
-        length = None
-
         if self.area and self.width:
             length = self.area / self.width
         elif self.perimeter and self.width:
@@ -83,8 +80,6 @@ class Rectangle:
         return length
 
     def calculate_width(self):
-        width = None
-        
         if self.area and self.length:
             width = self.area / self.length
         elif self.perimeter and self.length:
@@ -121,6 +116,8 @@ class Rectangle:
         return value_1
 
 class Triangle:
+    #TODO: Expand on this class
+    #TODO: Figure out if this should be a main class and several subclasses or some other solution
     def __init__(self, b=None, h=None, A=None): #Extremely simplified as an example which can then be expanded on further. Triangles are tricky to objectify
         self.base = b
         self.height = h
@@ -143,6 +140,7 @@ class Triangle:
         return (self.base*self.height)/2
 
 if __name__ == "__main__":
+    #This file should never be ran individually but if it is we provide some output
     texts = [
         "Your mother was a hamster and your father smelt of elderberries",
         "Do you find it risible when I say the name... Biggus... Dickus...?",
