@@ -112,8 +112,8 @@ class Rectangle:
         value_2 = constant - disc
 
         #Make sure everything seems correct
-        assert value_1 * value_2 == self.area
-        assert 2*value_1 + 2*value_2 == self.perimeter
+        assert value_1 * value_2 == self.area, "A rectangle with the given area and perimeter does not exist"
+        assert 2*value_1 + 2*value_2 == self.perimeter, "A rectangle with the given area and perimeter does not exist"
 
         return value_1
 
