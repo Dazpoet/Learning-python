@@ -9,8 +9,8 @@ import random
 #TODO: Consider precision and rounding, done in class or when using the results?
 
 class Circle:
-    #TODO: Consider using PI = 3.14 instead, math.pi is a lot more precise than most grade 9 textbooks account for
     def __init__(self, r=None, A=None, C=None):
+        SCHOOLBOOK_PI = 3.14
         self.radius = r
         if r:
             self.diameter = 2*r
@@ -24,6 +24,9 @@ class Circle:
             self.area = self.calculate_area()
         if not C:
             self.circumference = self.calculate_circumference()
+
+        assert self.radius*SCHOOLBOOK_PI**2 <= self.area <= self.radius**2*math.pi, "circle.area improperly defined"
+        assert self.diameter*SCHOOLBOOK_PI <= self.circumference <= self.diameter*math.pi, "circle.circumference improperly defined"
 
     def calculate_radius(self):
         if self.area:
@@ -59,8 +62,7 @@ class Rectangle:
         if not P:
             self.perimeter = self.calculate_perimeter()
         
-        if None in [self.length, self.width]:
-            raise ValueError("There's a None side in this rectangle")
+        assert None not in [self.length, self.width], "There's a none side in the rectangle object"
     
     def calculate_length(self):
         if self.area and self.width:
