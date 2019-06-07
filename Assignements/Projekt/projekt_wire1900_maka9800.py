@@ -4,6 +4,7 @@
 #TODO: All indata, utdata windows could probably be done in an OOP manner to shorten the code
 #TODO: Text generation logic could possibly be put into geometric_shapes.py and either ran on their own as functions or be added to the objects
 #TODO: Reflect on function names and find a standard that is robust and works
+#TODO: Figure out scrollbars
 
 import tkinter
 import geometric_shapes
@@ -13,22 +14,131 @@ from functools import partial
 root = tkinter.Tk()
 
 def choose_shape(n):
+    def raise_promise():
+        messagebox.showerror(title="Ej tillgänglig", message="Denna form är ännu inte färdigprogrammerad, kommer i nästa version!")
+
     if n == "Kvadrat":
         calculate_square()
     elif n == "Rektangel":
-        calculate_rectangle()
+        raise_promise()
     elif n == "Triangel":
-        calculate_isoceles_triangle()
+        raise_promise()
     elif n == "Cirkel":
         calculate_circle()
     else:
-        messagebox.showerror(title="Ej tillgänglig", message="Denna form är ännu inte färdigprogrammerad, kommer i nästa version!")
+        raise_promise()
+        
 
 def calculate_rectangle():
     pass
 
 def calculate_circle():
-    pass
+    def create_object():
+        #Massage the data so the object can be created
+        #TODO: Figure out if this can be done in a loop instead
+        try:
+            r = float(circle_radius.get())
+        except:
+            r = None
+        try:
+            C = float(circle_circumference.get())
+        except:
+            C = None
+        try:
+            A = float(circle_area.get())
+        except:
+            A = None
+        
+        #Create the circle object based on the rectangle class
+        circle = geometric_shapes.Circle(r=r, C=C, A=A)
+        
+        circle_input_window.destroy()
+
+        return circle
+    
+    def circle_generate_text(circle):
+        return "Celebrate good times come on!"
+
+    def inform_user():
+        circle = create_object()
+
+        #Create the window that displays the circle and calculations to the user
+        circle_window = tkinter.Toplevel(root)
+        
+        #Set the windows parameters
+        circle_window.title("Utdata")
+        circle_window.geometry("800x380+250+125")
+
+        #Create the drawing canvas and set its parameters
+        circle_canvas = tkinter.Canvas(circle_window,width=340, height=340, relief="sunken", bg="white")
+        circle_canvas.grid(column=0, row=0, sticky="nw", padx=10, pady=20)
+
+        #Draw the circle
+        #Since all circles are similar we can hard-code this shape and it'll always work
+        circle_canvas.create_oval(80,80,260,260,width=2,fill="blue")
+        
+        #Draw the radius and diameter
+        circle_canvas.create_line(170,170,170,80,width=3)
+        circle_canvas.create_line(80,170,260,170,width=3)
+
+        #Create the widgets that display the radius and diameter
+        circle_side1_widget = tkinter.Label(circle_canvas, text=f"r={round(circle.radius, 2)}")
+        circle_side2_widget = tkinter.Label(circle_canvas, text=f"d={round(circle.diameter, 2)}")
+
+        #Define the widgets position inside the canvas
+        circle_canvas.create_window(205,130,window=circle_side1_widget)
+        circle_canvas.create_window(170,195,window=circle_side2_widget)
+
+        #Configure the textwidgets
+        for child in [circle_side1_widget, circle_side2_widget]:
+            child.config(font = ("Arial", 14))
+            child.config(fg="white",bg="black")
+        
+        #Generate the informational text with solution to the problem
+        circle_solution = circle_generate_text(circle)
+
+        #Create a label to put the solution into and configure it
+        circle_losning = ttk.Label(circle_window, text = circle_solution)
+        circle_losning.config(font = ("Arial", 11), anchor = "nw", justify = "left", width = 45)
+        circle_losning.config(background = "white", relief = "sunken", wraplength = 410)
+        circle_losning.grid(column = 1, row = 0, sticky = "news", padx = 10, pady = 10)
+
+    def circle_gui(information_window): #Creates a gui for input data and collection of said data
+        
+        information_window.title("Indata")
+
+        #Create labels and entries for each datapoint we want to collect
+        #radius_entry is handled differently since we want to set focus on it
+        ttk.Label(information_window,text="Radie").grid(column=1, row=1, sticky="w")
+        radius_entry = ttk.Entry(information_window, width=7,textvariable=circle_radius)
+        radius_entry.focus_set()
+        radius_entry.grid(column=2, row=1)
+        ttk.Label(information_window,text="l.e.").grid(column=3, row=1, sticky="E")
+        
+        ttk.Label(information_window,text="Omkrets").grid(column=1, row=2, sticky="w")
+        ttk.Entry(information_window, width=7,textvariable=circle_circumference).grid(column=2, row=2)
+        ttk.Label(information_window,text="l.e.").grid(column=3, row=2, sticky="E")
+
+        ttk.Label(information_window,text="Area").grid(column=1, row=3, sticky="w")
+        ttk.Entry(information_window, width=7,textvariable=circle_area).grid(column=2, row=3)
+        ttk.Label(information_window,text="a.e.").grid(column=3, row=3, sticky="E")
+
+        ttk.Button(information_window,text="Beräkna",command=inform_user).grid(column=2, row=4)
+
+        #Make the GUI nice and roomy
+        for child in information_window.winfo_children():
+            child.grid_configure(padx=20,pady=20)
+
+    #Add variables for entry and running logic
+    circle_radius = tkinter.StringVar()
+    circle_circumference = tkinter.StringVar()
+    circle_area = tkinter.StringVar()
+
+    #Create the input window
+    circle_input_window = tkinter.Toplevel(root)
+
+    #Run the GUI
+    circle_gui(circle_input_window)
 
 def calculate_isoceles_triangle():
     pass
@@ -173,8 +283,11 @@ def calculate_square():
         information_window.title("Indata")
 
         #Create labels and entries for each datapoint we want to collect
+        #square_entry is a special case since we want to set focus to it
         ttk.Label(information_window,text="Sidlängd").grid(column=1, row=1, sticky="w")
-        ttk.Entry(information_window, width=7,textvariable=square_side).grid(column=2, row=1)
+        square_entry = ttk.Entry(information_window, width=7,textvariable=square_side)
+        square_entry.focus_set()
+        square_entry.grid(column=2, row=1)
         ttk.Label(information_window,text="l.e.").grid(column=3, row=1, sticky="E")
         
         ttk.Label(information_window,text="Omkrets").grid(column=1, row=2, sticky="w")
@@ -185,6 +298,7 @@ def calculate_square():
         ttk.Entry(information_window, width=7,textvariable=square_area).grid(column=2, row=3)
         ttk.Label(information_window,text="a.e.").grid(column=3, row=3, sticky="E")
 
+        #TODO: bind the enter key to trigger the button
         ttk.Button(information_window,text="Beräkna",command=inform_user).grid(column=2, row=4)
 
         #Make the GUI nice and roomy
