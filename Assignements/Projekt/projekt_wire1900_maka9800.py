@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 #TODO: All indata, utdata windows could probably be done in an OOP manner to shorten the code
+#TODO: Text generation logic could possibly be put into geometric_shapes.py and either ran on their own as functions or be added to the objects
+#TODO: Reflect on function names and find a standard that is robust and works
 
 import tkinter
 import geometric_shapes
@@ -19,6 +21,8 @@ def choose_shape(n):
         calculate_isoceles_triangle()
     elif n == "Cirkel":
         calculate_circle()
+    else:
+        messagebox.showerror(title="Ej tillgänglig", message="Denna form är ännu inte färdigprogrammerad, kommer i nästa version!")
 
 def calculate_rectangle():
     pass
@@ -54,6 +58,7 @@ def calculate_square():
         return square
     
     def square_generate_text(square):
+    #This function looks at the object and input from the user and generates a solution that only shows the pertinent information
         def generate_t2():
             if square_side.get():
                 return f"L = Längd = {round(square.length, 2)} l.e.\n"
@@ -84,7 +89,7 @@ def calculate_square():
             else:
                 return ""
 
-        def generate_t7():
+        def generate_t8():
             if not square_side.get() and not square_area.get():
                 return f"s = {round(square.perimeter, 2)} / 4 = {round(square.length, 2)} l.e."
             elif not square_side.get() and not square_perimeter.get():
@@ -112,7 +117,7 @@ def calculate_square():
             f"O = 4 * {round(square.length, 2)} = {round(square.perimeter, 2)} l.e.\n\n"\
             f"A = {round(square.length, 2)} * {round(square.length, 2)} = {round(square.area, 2)} a.e.\n\n"
 
-        t_8 = generate_t7()
+        t_8 = generate_t8()
 
         losning = t_1 + t_2 + t_3 + t_4 + t_5 + t_6 + t_7 + t_8
 
@@ -120,8 +125,6 @@ def calculate_square():
 
     def inform_user():
         square = create_object()
-        #TODO: Add drawing and stuff here
-        #TODO: Create function that generate the needed text
 
         #Create the window that displays the square and calculations to the user
         square_window = tkinter.Toplevel(root)
@@ -161,9 +164,9 @@ def calculate_square():
 
         #Create a label to put the solution into and configure it
         square_losning = ttk.Label(square_window, text = square_solution)
-        square_losning.config(font = ("Arial", 12), anchor = "n", justify = "left", width = 40)
+        square_losning.config(font = ("Arial", 11), anchor = "nw", justify = "left", width = 45)
         square_losning.config(background = "white", relief = "sunken", wraplength = 410)
-        square_losning.grid(column = 1, row = 0, sticky = "news", padx = 10, pady = 20)
+        square_losning.grid(column = 1, row = 0, sticky = "news", padx = 10, pady = 10)
 
     def square_gui(information_window): #Creates a gui for input data and collection of said data
         
