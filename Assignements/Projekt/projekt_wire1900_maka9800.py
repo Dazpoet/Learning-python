@@ -68,7 +68,7 @@ def calculate_rectangle():
         #To ensure that the rectangle fits within the given space (340x340) some calculations must be done
         #Building upon the square drawing and the fact that it was of an appropriate size we can extrapolate that a rectangle with diagonal < 255 pixels is a good fit
         #If the diagonal is less than 127 (approx half of the maximum) the rectangle will look very small
-        
+        #TODO: Remove the logging entries below once we're sure they aren't needed anymore
         is_calculating = True
         counter = 0
         while is_calculating:
@@ -211,19 +211,19 @@ def calculate_circle():
     
     def circle_generate_text(circle):    
         def generate_t2():
-            if circle_radius:
+            if circle_radius.get():
                 return f"\nr = radie = {round(circle.radius, 2)} l.e."
             else:
                 return ""
 
         def generate_t3():
-            if circle_circumference:
+            if circle_circumference.get():
                 return f"\nO = omkrets = {round(circle.circumference, 2)} l.e."
             else:
                 return ""
             
         def generate_t4():
-            if circle_area:
+            if circle_area.get():
                 return f"\nA = area = {round(circle.area, 2)} a.e."
             else:
                 return ""
@@ -278,16 +278,16 @@ def calculate_circle():
         circle_canvas.create_line(170,170,170,80,width=3)
         circle_canvas.create_line(80,170,260,170,width=3)
 
-        #Create the widgets that display the radius and diameter
-        circle_side1_widget = tkinter.Label(circle_canvas, text=f"r={round(circle.radius, 2)}")
-        circle_side2_widget = tkinter.Label(circle_canvas, text=f"d={round(circle.diameter, 2)}")
+        #Create the widgets that display the radius and diameter information
+        circle_radius_widget = tkinter.Label(circle_canvas, text=f"r={round(circle.radius, 2)}")
+        circle_diameter_widget = tkinter.Label(circle_canvas, text=f"d={round(circle.diameter, 2)}")
 
         #Define the widgets position inside the canvas
-        circle_canvas.create_window(205,130,window=circle_side1_widget)
-        circle_canvas.create_window(170,195,window=circle_side2_widget)
+        circle_canvas.create_window(205,130,window=circle_radius_widget)
+        circle_canvas.create_window(170,195,window=circle_diameter_widget)
 
         #Configure the textwidgets
-        for child in [circle_side1_widget, circle_side2_widget]:
+        for child in [circle_radius_widget, circle_diameter_widget]:
             child.config(font = ("Arial", 14))
             child.config(fg="white",bg="black")
         
