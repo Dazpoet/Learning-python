@@ -8,6 +8,7 @@
 
 import tkinter
 import geometric_shapes
+import math
 from tkinter import ttk, messagebox
 from functools import partial
 
@@ -20,7 +21,7 @@ def choose_shape(n):
     if n == "Kvadrat":
         calculate_square()
     elif n == "Rektangel":
-        raise_promise()
+        calculate_rectangle()
     elif n == "Triangel":
         raise_promise()
     elif n == "Cirkel":
@@ -28,9 +29,161 @@ def choose_shape(n):
     else:
         raise_promise()
         
-
 def calculate_rectangle():
-    pass
+    def create_object():
+        #Massage the data so the object can be created
+        #TODO: Figure out if this can be done in a loop instead
+        try:
+            l = float(rectangle_length.get())
+        except:
+            l = None
+        try:
+            w = float(rectangle_width.get())
+        except:
+            w = None
+        try:
+            P = float(rectangle_perimeter.get())
+        except:
+            P = None
+        try:
+            A = float(rectangle_area.get())
+        except:
+            A = None
+        
+        #Create the rectangle object based on the rectangle class
+        rectangle = geometric_shapes.Rectangle(l=l, w=w, P=P, A=A)
+        
+        rectangle_input_window.destroy()
+
+        return rectangle
+    
+    def rectangle_generate_text(rectangle):
+    #This function looks at the object and input from the user and generates a solution that only shows the pertinent information
+        return "We are the knights that say ni"
+
+    def find_rectangle_coordinates(rectangle):
+        length = rectangle.length
+        width = rectangle.width
+
+        #To ensure that the rectangle fits within the given space (340x340) some calculations must be done
+        #Building upon the square drawing and the fact that it was of an appropriate size we can extrapolate that a rectangle with diagonal < 255 pixels is a good fit
+        #If the diagonal is less than 127 (approx half of the maximum) the rectangle will look very small
+        
+        is_calculating = True
+        counter = 0
+        while is_calculating:
+            counter += 1
+            print("Performing run: ", counter) #LOGGING ONLY
+            diagonal = math.sqrt(length**2 + width**2)
+            if diagonal > 127 and diagonal < 255:
+                is_calculating = False
+            elif diagonal < 127:
+                length *= 2
+                width *= 2
+                print("Raising to: ", length, width) #LOGGING ONLY
+            elif diagonal > 255:
+                length /= 2
+                width /= 2
+                print("Lowering to: ", length, width)#LOGGING ONLY
+
+        #The rectangle is always drawn from the point x1,y1 = 80,120 so we only need to find x2,y2 which is
+        #x1 + length, y1 + width
+
+        x2 = 80 + length
+        y2 = 120 + width
+
+        return x2, y2
+
+    def inform_user():
+        rectangle = create_object()
+
+        #Create the window that displays the rectangle and calculations to the user
+        rectangle_window = tkinter.Toplevel(root)
+        
+        #Set the windows parameters
+        rectangle_window.title("Utdata")
+        rectangle_window.geometry("800x380+250+125")
+
+        #Create the drawing canvas and set its parameters
+        rectangle_canvas = tkinter.Canvas(rectangle_window,width=340, height=340, relief="sunken", bg="white")
+        rectangle_canvas.grid(column=0, row=0, sticky="nw", padx=10, pady=20)
+
+        #Since rectangles come in different shapes we need to calculate the correct coordinates
+        rectangle_coordinates = find_rectangle_coordinates(rectangle)
+
+        #Create the rectangle
+        rectangle_canvas.create_rectangle(80,120,rectangle_coordinates[0],rectangle_coordinates[1],width=2,fill="red")
+
+        #Create the widgets that display the sidelength
+        rectangle_length_widget = tkinter.Label(rectangle_canvas, text=round(rectangle.length, 2))
+        rectangle_width_widget = tkinter.Label(rectangle_canvas, text=round(rectangle.width, 2))
+
+        #Do some mathmagical things to make the informations position mostly correct
+        #Works for numbers up to 6 digits before they move out of scope
+        #TODO: Add logic to make this behave differently when there is more than 6 digits
+        x1 = 70 - 5*len(str(rectangle.length))
+
+        #Define the widgets position inside the canvas
+        rectangle_canvas.create_window(x1,(120 + ((rectangle_coordinates[1]-120)/2)),window=rectangle_width_widget)
+        rectangle_canvas.create_window(80+((rectangle_coordinates[0]-80)/2),(rectangle_coordinates[1]+16),window=rectangle_length_widget)
+
+
+        #Configure the textwidgets
+        for child in [rectangle_length_widget, rectangle_width_widget]:
+            child.config(font = ("Arial", 14))
+            child.config(fg="white",bg="black")
+        
+        #Generate the informational text with solution to the problem
+        rectangle_solution = rectangle_generate_text(rectangle)
+
+        #Create a label to put the solution into and configure it
+        rectangle_losning = ttk.Label(rectangle_window, text = rectangle_solution)
+        rectangle_losning.config(font = ("Arial", 11), anchor = "nw", justify = "left", width = 45)
+        rectangle_losning.config(background = "white", relief = "sunken", wraplength = 410)
+        rectangle_losning.grid(column = 1, row = 0, sticky = "news", padx = 10, pady = 10)
+
+    def rectangle_gui(information_window): #Creates a gui for input data and collection of said data
+        
+        information_window.title("Indata")
+
+        #Create labels and entries for each datapoint we want to collect
+        #rectangle_entry is a special case since we want to set focus to it
+        ttk.Label(information_window,text="Bas").grid(column=1, row=1, sticky="w")
+        rectangle_entry = ttk.Entry(information_window, width=7,textvariable=rectangle_length)
+        rectangle_entry.focus_set()
+        rectangle_entry.grid(column=2, row=1)
+        ttk.Label(information_window,text="l.e.").grid(column=3, row=1, sticky="E")
+
+        ttk.Label(information_window,text="Höjd").grid(column=1, row=2, sticky="w")
+        ttk.Entry(information_window, width=7,textvariable=rectangle_width).grid(column=2, row=2)
+        ttk.Label(information_window,text="l.e.").grid(column=3, row=2, sticky="E")
+
+        ttk.Label(information_window,text="Omkrets").grid(column=1, row=3, sticky="w")
+        ttk.Entry(information_window, width=7,textvariable=rectangle_perimeter).grid(column=2, row=3)
+        ttk.Label(information_window,text="l.e.").grid(column=3, row=3, sticky="E")
+
+        ttk.Label(information_window,text="Area").grid(column=1, row=4, sticky="w")
+        ttk.Entry(information_window, width=7,textvariable=rectangle_area).grid(column=2, row=4)
+        ttk.Label(information_window,text="a.e.").grid(column=3, row=4, sticky="E")
+
+        #TODO: bind the enter key to trigger the button
+        ttk.Button(information_window,text="Beräkna",command=inform_user).grid(column=2, row=5)
+
+        #Make the GUI nice and roomy
+        for child in information_window.winfo_children():
+            child.grid_configure(padx=20,pady=20)
+
+    #Add variables for entry and running logic
+    rectangle_length = tkinter.StringVar()
+    rectangle_width = tkinter.StringVar()
+    rectangle_area = tkinter.StringVar()
+    rectangle_perimeter = tkinter.StringVar()
+
+    #Create the input window
+    rectangle_input_window = tkinter.Toplevel(root)
+
+    #Run the GUI
+    rectangle_gui(rectangle_input_window)
 
 def calculate_circle():
     def create_object():
@@ -56,8 +209,52 @@ def calculate_circle():
 
         return circle
     
-    def circle_generate_text(circle):
-        return "Celebrate good times come on!"
+    def circle_generate_text(circle):    
+        def generate_t2():
+            if circle_radius:
+                return f"\nr = radie = {round(circle.radius, 2)} l.e."
+            else:
+                return ""
+
+        def generate_t3():
+            if circle_circumference:
+                return f"\nO = omkrets = {round(circle.circumference, 2)} l.e."
+            else:
+                return ""
+            
+        def generate_t4():
+            if circle_area:
+                return f"\nA = area = {round(circle.area, 2)} a.e."
+            else:
+                return ""
+
+        def calculate_radius_t7():
+            if not circle_radius and not circle_circumference:
+                return f"\nr = \u221A({round(circle.area, 2)}/\u03c0) = {round(circle.radius, 2)} l.e."
+            elif not circle_radius and not circle_area:
+                return f"\nr = {round(circle.circumference, 2)}/(2*\u03c0) = {round(circle.radius, 2)} l.e."
+            else:
+                return ""
+
+        t_1 = "Värden"
+
+        t_2 = generate_t2()
+
+        t_3 = generate_t3()
+
+        t_4 = generate_t4()
+
+        t_5 = "\n\nFormler""\nd = diameter = 2 * radie""\nr = radie""\nO = Omkrets = 2 * r * \u03c0""\nA = Area = r\u00b2 * \u03c0 = r * r * \u03c0"\
+        "\nr = Omkrets/(\u03c0 * 2)\n""eller\n""r = \u221A(Area/\u03c0)""\n\nBeräkning"
+
+        t_6 = f"\nO = 2 * {round(circle.radius, 2)} * \u03c0 = {round(circle.circumference, 2)} l.e."\
+        f"\nA = {round(circle.radius, 2)} * {round(circle.radius, 2)} * \u03c0 = {round(circle.area, 2)} a.e."
+        
+        t_7 = calculate_radius_t7()
+
+        losning = t_1 + t_2 + t_3 + t_4 + t_5 + t_6 + t_7
+
+        return losning
 
     def inform_user():
         circle = create_object()
@@ -266,7 +463,7 @@ def calculate_square():
 
         #Configure the textwidgets
         for child in [square_side1_widget, square_side2_widget]:
-            child.config(font = ("Arial", 18))
+            child.config(font = ("Arial", 14))
             child.config(fg="white",bg="black")
         
         #Generate the informational text with solution to the problem
