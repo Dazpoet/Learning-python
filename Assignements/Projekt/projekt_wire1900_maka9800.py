@@ -69,6 +69,7 @@ def calculate_rectangle():
         #Building upon the square drawing and the fact that it was of an appropriate size we can extrapolate that a rectangle with diagonal < 255 pixels is a good fit
         #If the diagonal is less than 127 (approx half of the maximum) the rectangle will look very small
         #TODO: Remove the logging entries below once we're sure they aren't needed anymore
+        #TODO: Consider if the lower bound of 127 is to small, some rectangles still look very small
         is_calculating = True
         counter = 0
         while is_calculating:
