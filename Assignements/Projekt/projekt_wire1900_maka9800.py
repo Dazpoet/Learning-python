@@ -23,7 +23,7 @@ def choose_shape(n):
     elif n == "Rektangel":
         calculate_rectangle()
     elif n == "Triangel":
-        raise_promise()
+        calculate_isoceles_triangle()
     elif n == "Cirkel":
         calculate_circle()
     else:
@@ -339,7 +339,172 @@ def calculate_circle():
     circle_gui(circle_input_window)
 
 def calculate_isoceles_triangle():
-    pass
+    def create_object():
+        #Massage the data so the object can be created
+        #TODO: Figure out if this can be done in a loop instead
+        try:
+            b = float(isoceles_triangle_base.get())
+        except:
+            b = None
+        try:
+            h = float(isoceles_triangle_height.get())
+        except:
+            h = None
+        try:
+            A = float(isoceles_triangle_area.get())
+        except:
+            A = None
+        
+        #Create the isoceles_triangle object based on the isoceles_triangle class
+        isoceles_triangle = geometric_shapes.Triangle(b=b, h=h, A=A)
+        
+        isoceles_triangle_input_window.destroy()
+
+        return isoceles_triangle
+    
+    def isoceles_triangle_generate_text(isoceles_triangle):
+    #This function looks at the object and input from the user and generates a solution that only shows the pertinent information
+        return "What is the airspeed velocity of an unladen swallow?"
+
+    def find_isoceles_triangle_coordinates(isoceles_triangle):
+        base = isoceles_triangle.base
+        height = isoceles_triangle.height
+        #To ensure that the isoceles_triangle fits within the given space (340x340) some calculations must be done
+        #Building upon the square drawing and the fact that it was of an appropriate size we can infer that if the triangle
+        #can fit inside a square of side 170 it will fit inside the canvas while leaving appropriate amounts of whitespace
+        #around it.
+        #Drawing on this the largest isoceles triangle that can fit will have base and height both being 170 which means the
+        #diagonal will be, rounded up, 241 and since we want the base to be able to be seen we need the diagonal to be larger 
+        #than 170 so we set the requirement to 172
+        
+        counter = 0
+        is_calculating = True
+        while is_calculating:
+            diagonal = math.sqrt(base**2 + height**2)
+            counter += 1
+            print("Performing run: ", counter) #LOGGING ONLY
+            if diagonal > 172 and diagonal < 241:
+                is_calculating = False
+            elif diagonal < 172:
+                base *= 2
+                height *=2
+                print("Raising to: ", base, height) #LOGGING ONLY
+            elif diagonal > 241:
+                base /= 3
+                height /= 3
+                print("Lowering to: ", base, height) #LOGGING ONLY
+            if counter == 15: #If we're still stuck after 15 computations we take the square root to get a new number to start from
+                base = math.sqrt(base)
+                height = math.sqrt(height)
+            elif counter > 50: #After 50 computations we give up
+                #We just grabbed an error, it's probably not the right one
+                raise RuntimeError("To many calculations to find diagnoal for isoceles triangle")
+        
+        #Having found a fitting base and height we can calculate the coordinates as follows.
+        #The topmost coordinate (x2,y2) will always be x=170,y=80
+        #The leftmost coordinate (x1,y1) will be x = 170 - base/2, y = 80 + height
+        #The rightmost coordinate (x3,y3) will be x = 170 + base/2, y = 80 + height
+        #To draw the lenght we need a line that is between (x2,y2) x = 170, y = 80 and (x4,y4) x = 170, y = 80 + height
+
+        point_1 = (170 - base/2, 80 + height)
+        point_2 = (170,80)
+        point_3 = (170 + base/2, 80 + height)
+        point_4 = (170, 80 + height)
+
+        return point_1, point_2, point_3, point_4        
+
+    def inform_user():
+        isoceles_triangle = create_object()
+
+        #Create the window that displays the isoceles_triangle and calculations to the user
+        isoceles_triangle_window = tkinter.Toplevel(root)
+        
+        #Set the windows parameters
+        isoceles_triangle_window.title("Utdata")
+        isoceles_triangle_window.geometry("800x380+250+125")
+
+        #Create the drawing canvas and set its parameters
+        isoceles_triangle_canvas = tkinter.Canvas(isoceles_triangle_window,width=340, height=340, relief="sunken", bg="white")
+        isoceles_triangle_canvas.grid(column=0, row=0, sticky="nw", padx=10, pady=20)
+
+        #Since isoceles_triangles come in different shapes we need to calculate the correct coordinates
+        isoceles_triangle_coordinates = find_isoceles_triangle_coordinates(isoceles_triangle)
+
+        #Create the isoceles_triangle
+        isoceles_triangle_canvas.create_polygon(
+            isoceles_triangle_coordinates[0][0], isoceles_triangle_coordinates[0][1],
+            isoceles_triangle_coordinates[1][0], isoceles_triangle_coordinates[1][1],
+            isoceles_triangle_coordinates[2][0], isoceles_triangle_coordinates[2][1],
+            width=2, fill="red")
+
+        isoceles_triangle_canvas.create_line(
+            isoceles_triangle_coordinates[1][0], isoceles_triangle_coordinates[1][1],
+            isoceles_triangle_coordinates[3][0], isoceles_triangle_coordinates[3][1], width=3)
+
+        #Create the widgets that display the sidelength
+        isoceles_triangle_base_widget = tkinter.Label(isoceles_triangle_canvas, text=round(isoceles_triangle.base, 2))
+        isoceles_triangle_height_widget = tkinter.Label(isoceles_triangle_canvas, text=round(isoceles_triangle.height, 2))
+
+        #Define the widgets position inside the canvas
+        isoceles_triangle_canvas.create_window(
+            170, 80 + ((isoceles_triangle_coordinates[3][1] - 80)/1.6),
+            window=isoceles_triangle_height_widget)
+        isoceles_triangle_canvas.create_window(
+            170,isoceles_triangle_coordinates[3][1]+16,
+            window=isoceles_triangle_base_widget)
+
+
+        #Configure the textwidgets
+        for child in [isoceles_triangle_base_widget, isoceles_triangle_height_widget]:
+            child.config(font = ("Arial", 14))
+            child.config(fg="white",bg="black")
+        
+        #Generate the informational text with solution to the problem
+        isoceles_triangle_solution = isoceles_triangle_generate_text(isoceles_triangle)
+
+        #Create a label to put the solution into and configure it
+        isoceles_triangle_losning = ttk.Label(isoceles_triangle_window, text = isoceles_triangle_solution)
+        isoceles_triangle_losning.config(font = ("Arial", 11), anchor = "nw", justify = "left", width = 45)
+        isoceles_triangle_losning.config(background = "white", relief = "sunken", wraplength = 410)
+        isoceles_triangle_losning.grid(column = 1, row = 0, sticky = "news", padx = 10, pady = 10)
+
+    def isoceles_triangle_gui(information_window): #Creates a gui for input data and collection of said data
+        
+        information_window.title("Indata")
+
+        #Create labels and entries for each datapoint we want to collect
+        #isoceles_triangle_entry is a special case since we want to set focus to it
+        ttk.Label(information_window,text="Bas").grid(column=1, row=1, sticky="w")
+        isoceles_triangle_entry = ttk.Entry(information_window, width=7,textvariable=isoceles_triangle_base)
+        isoceles_triangle_entry.focus_set()
+        isoceles_triangle_entry.grid(column=2, row=1)
+        ttk.Label(information_window,text="l.e.").grid(column=3, row=1, sticky="E")
+
+        ttk.Label(information_window,text="Höjd").grid(column=1, row=2, sticky="w")
+        ttk.Entry(information_window, width=7,textvariable=isoceles_triangle_height).grid(column=2, row=2)
+        ttk.Label(information_window,text="l.e.").grid(column=3, row=2, sticky="E")
+
+        ttk.Label(information_window,text="Area").grid(column=1, row=4, sticky="w")
+        ttk.Entry(information_window, width=7,textvariable=isoceles_triangle_area).grid(column=2, row=4)
+        ttk.Label(information_window,text="a.e.").grid(column=3, row=4, sticky="E")
+
+        #TODO: bind the enter key to trigger the button
+        ttk.Button(information_window,text="Beräkna",command=inform_user).grid(column=2, row=5)
+
+        #Make the GUI nice and roomy
+        for child in information_window.winfo_children():
+            child.grid_configure(padx=20,pady=20)
+
+    #Add variables for entry and running logic
+    isoceles_triangle_base = tkinter.StringVar()
+    isoceles_triangle_height = tkinter.StringVar()
+    isoceles_triangle_area = tkinter.StringVar()
+
+    #Create the input window
+    isoceles_triangle_input_window = tkinter.Toplevel(root)
+
+    #Run the GUI
+    isoceles_triangle_gui(isoceles_triangle_input_window)
 
 def calculate_square():
     def create_object():
