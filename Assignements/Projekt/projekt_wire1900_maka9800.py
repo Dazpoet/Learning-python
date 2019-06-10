@@ -59,7 +59,68 @@ def calculate_rectangle():
     
     def rectangle_generate_text(rectangle):
     #This function looks at the object and input from the user and generates a solution that only shows the pertinent information
-        return "We are the knights that say ni"
+        length = rectangle_length.get()
+        width = rectangle_width.get()
+        area = rectangle_area.get()
+        perimeter = rectangle_perimeter.get()
+
+        def generate_t2():
+            if length:
+                return f"b = Bas = {length} l.e."
+            else:
+                return ""
+    
+        def generate_t3():
+            if width:
+                return f"\nh = Höjd = {width} l.e."
+            else:
+                return ""
+
+        def generate_t4():
+            if perimeter:
+                return f"\nO = Omkrets = {perimeter} l.e."
+            else:
+                return""
+        
+        def generate_t5():
+            if area:
+                return f"\nA = Area = {area} a.e."
+            else:
+                return""
+        
+        def calculate_length_t8():
+            if not length and not area:
+                return f"\nb = ({rectangle.perimeter} - 2 * h) / 2 = {rectangle.length} l.e."
+            if not width and not area:
+                return f"\nh = ({rectangle.perimeter} - 2 * b) / 2 = {rectangle.width} l.e."
+            elif not length and not perimeter:
+                return f"\nb = {rectangle.area} / h = {rectangle.length} l.e."
+            elif not width and not perimeter:
+                return f"\nh = {rectangle.area} / b = {rectangle.width} l.e."
+            else:
+                return ""
+
+        t_1 = "Värden\n\n"
+        
+        t_2 = generate_t2()
+
+        t_3 = generate_t3()
+    
+        t_4 = generate_t4()
+    
+        t_5 = generate_t5()
+        
+        t_6 = "\n\nFormler""\n\nb = bas""\nh = höjd""\nO = Omkrets = 2 * b + 2 * h = b + b + h + h""\nA = Area = b * h"\
+        "\nh = (Omkrets - 2*b)/2 eller b = (Omkrets - 2*h)/2 ""\nb = Area/h eller h = Area/b""\n\nBeräkning"
+
+        t_7 = f"\nO = 2 * {rectangle.length} + 2 * {rectangle.width} = {rectangle.perimeter} l.e."\
+            f"\nA = {rectangle.length} * {rectangle.width} = {rectangle.area} a.e."
+
+        t_8 = calculate_length_t8()
+
+        losning = t_1 + t_2 + t_3 + t_4 + t_5 + t_6 + t_7 + t_8
+
+        return losning
 
     def find_rectangle_coordinates(rectangle):
         length = rectangle.length
@@ -439,7 +500,8 @@ def calculate_isoceles_triangle():
 
         isoceles_triangle_canvas.create_line(
             isoceles_triangle_coordinates[1][0], isoceles_triangle_coordinates[1][1],
-            isoceles_triangle_coordinates[3][0], isoceles_triangle_coordinates[3][1], width=3)
+            isoceles_triangle_coordinates[3][0], isoceles_triangle_coordinates[3][1],
+            width=3)
 
         #Create the widgets that display the sidelength
         isoceles_triangle_base_widget = tkinter.Label(isoceles_triangle_canvas, text=round(isoceles_triangle.base, 2))
