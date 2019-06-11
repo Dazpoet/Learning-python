@@ -66,7 +66,7 @@ def calculate_rectangle():
 
         def generate_t2():
             if length:
-                return f"b = Bas = {length} l.e."
+                return f"\nb = Bas = {length} l.e."
             else:
                 return ""
     
@@ -100,7 +100,7 @@ def calculate_rectangle():
             else:
                 return ""
 
-        t_1 = "Värden\n\n"
+        t_1 = "\nVärden\n"
         
         t_2 = generate_t2()
 
@@ -135,18 +135,23 @@ def calculate_rectangle():
         counter = 0
         while is_calculating:
             counter += 1
-            print("Performing run: ", counter) #LOGGING ONLY
             diagonal = math.sqrt(length**2 + width**2)
             if diagonal > 127 and diagonal < 255:
                 is_calculating = False
             elif diagonal < 127:
                 length *= 2
                 width *= 2
-                print("Raising to: ", length, width) #LOGGING ONLY
             elif diagonal > 255:
-                length /= 2
-                width /= 2
-                print("Lowering to: ", length, width)#LOGGING ONLY
+                length /= 3
+                width /= 3
+            elif counter == 15:
+                math.sqrt(length)
+                math.sqrt(width)
+            elif counter == 30:
+                length**2
+                width**2
+            elif counter == 50:
+                raise RuntimeError("Too many calculations required to find rectangle coordinates")
 
         #The rectangle is always drawn from the point x1,y1 = 80,120 so we only need to find x2,y2 which is
         #x1 + length, y1 + width
@@ -201,7 +206,7 @@ def calculate_rectangle():
         #Do some mathmagical things to make the informations position mostly correct
         #Works for numbers up to 6 digits before they move out of scope
         #TODO: Add logic to make this behave differently when there is more than 6 digits
-        x1 = 70 - 5*len(str(rectangle.length))
+        x1 = 70 - 5*len(str(round(rectangle.length, 2)))
 
         #Define the widgets position inside the canvas
         rectangle_canvas.create_window(x1,(120 + ((rectangle_coordinates[1]-120)/2)),window=rectangle_width_widget)
@@ -316,7 +321,7 @@ def calculate_circle():
             else:
                 return ""
 
-        t_1 = "Värden"
+        t_1 = "\nVärden\n"
 
         t_2 = generate_t2()
 
@@ -324,8 +329,8 @@ def calculate_circle():
 
         t_4 = generate_t4()
 
-        t_5 = "\n\nFormler""\nd = diameter = 2 * radie""\nr = radie""\nO = Omkrets = 2 * r * \u03c0""\nA = Area = r\u00b2 * \u03c0 = r * r * \u03c0"\
-        "\nr = Omkrets/(\u03c0 * 2)\n""eller\n""r = \u221A(Area/\u03c0)""\n\nBeräkning"
+        t_5 = "\n\nFormler\n""\nd = diameter = 2 * radie""\nr = radie""\nO = Omkrets = 2 * r * \u03c0""\nA = Area = r\u00b2 * \u03c0 = r * r * \u03c0"\
+        "\nr = Omkrets/(\u03c0 * 2)\n""eller\n""r = \u221A(Area/\u03c0)""\n\nBeräkning\n"
 
         t_6 = f"\nO = 2 * {round(circle.radius, 2)} * \u03c0 = {round(circle.circumference, 2)} l.e."\
         f"\nA = {round(circle.radius, 2)} * {round(circle.radius, 2)} * \u03c0 = {round(circle.area, 2)} a.e."
@@ -489,7 +494,7 @@ def calculate_isoceles_triangle():
             else:
                 return ""
 
-        t_1 = "Värden\n\n"
+        t_1 = "\nVärden\n\n"
         
         t_2 = generate_t2()
 
@@ -739,15 +744,15 @@ def calculate_square():
     
         t_4 = generate_t4()
         
-        t_5 = "\n\nFormler\n\n"\
+        t_5 = "\nFormler\n\n"\
             "O = Omkrets = 4 * s = s + s + s + s\n"\
             "A = Area = s\u00b2 = s * s\n"\
         
         t_6 = generate_t6()
 
         t_7 = "\n\nBeräkning\n\n"\
-            f"O = 4 * {round(square.length, 2)} = {round(square.perimeter, 2)} l.e.\n\n"\
-            f"A = {round(square.length, 2)} * {round(square.length, 2)} = {round(square.area, 2)} a.e.\n\n"
+            f"O = 4 * {round(square.length, 2)} = {round(square.perimeter, 2)} l.e.\n"\
+            f"A = {round(square.length, 2)} * {round(square.length, 2)} = {round(square.area, 2)} a.e.\n"
 
         t_8 = generate_t8()
 
@@ -796,7 +801,7 @@ def calculate_square():
         #Do some mathmagical things to make the informations position mostly correct
         #Works for numbers up to 6 digits before they move out of scope
         #TODO: Add logic to make this behave differently when there is more than 6 digits
-        x1 = 70 - 5*len(str(square.length))
+        x1 = 70 - 5*len(str(round(square.length, 2)))
 
         #Define the widgets position inside the canvas
         square_canvas.create_window(x1,170,window=square_side1_widget)
