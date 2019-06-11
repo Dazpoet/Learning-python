@@ -523,23 +523,19 @@ def calculate_isoceles_triangle():
         #Drawing on this the largest isoceles triangle that can fit will have base and height both being 170 which means the
         #diagonal will be, rounded up, 241 and since we want the base to be able to be seen we need the diagonal to be larger 
         #than 170 so we set the requirement to 172
-        
         counter = 0
         is_calculating = True
         while is_calculating:
             diagonal = math.sqrt(base**2 + height**2)
             counter += 1
-            print("Performing run: ", counter) #LOGGING ONLY
             if diagonal > 172 and diagonal < 241:
                 is_calculating = False
             elif diagonal < 172:
                 base *= 2
                 height *=2
-                print("Raising to: ", base, height) #LOGGING ONLY
             elif diagonal > 241:
                 base /= 3
                 height /= 3
-                print("Lowering to: ", base, height) #LOGGING ONLY
             if counter == 15: #If we're still stuck after 15 computations we take the square root to get a new number to start from
                 base = math.sqrt(base)
                 height = math.sqrt(height)
