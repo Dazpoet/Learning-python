@@ -318,6 +318,22 @@ def calculate_circle():
 
         return losning
 
+    def try_inform_user():
+        try:
+            inform_user()
+        except UnboundLocalError:
+            messagebox.showerror(title="Fel",message="Du har matat in en icke-siffra eller annat tecken som inte går att tolka som en siffra, försök igen")
+            circle_radius.set("")
+            circle_circumference.set("")
+            circle_area.set("")
+            circle_input_window.focus()
+        except (AssertionError,ValueError):
+            messagebox.showerror(title="Fel",message="Du har matat in siffror som ger upphov till en cirkel som inte är möjlig eller ett negativt tal, försäkra dig om att det går att räkna ut en cirkel utifrån din inmatning.")
+            circle_radius.set("")
+            circle_circumference.set("")
+            circle_area.set("")
+            circle_input_window.focus()
+
     def inform_user():
         circle = create_object()
 
@@ -382,7 +398,7 @@ def calculate_circle():
         ttk.Entry(information_window, width=7,textvariable=circle_area).grid(column=2, row=3)
         ttk.Label(information_window,text="a.e.").grid(column=3, row=3, sticky="E")
 
-        ttk.Button(information_window,text="Beräkna",command=inform_user).grid(column=2, row=4)
+        ttk.Button(information_window,text="Beräkna",command=try_inform_user).grid(column=2, row=4)
 
         #Make the GUI nice and roomy
         for child in information_window.winfo_children():
@@ -425,7 +441,54 @@ def calculate_isoceles_triangle():
     
     def isoceles_triangle_generate_text(isoceles_triangle):
     #This function looks at the object and input from the user and generates a solution that only shows the pertinent information
-        return "What is the airspeed velocity of an unladen swallow?"
+        triangle_base = isoceles_triangle_base.get()
+        triangle_height = isoceles_triangle_height.get()
+        triangle_area = isoceles_triangle_area.get()
+
+        def generate_t2():
+            if triangle_base:
+                return f"b = Bas = {triangle_base} l.e."
+            else:
+                return ""
+
+        def generate_t3():
+            if triangle_height:
+                return f"\nh = Höjd = {triangle_height} l.e."
+            else:
+                return ""
+
+        def generate_t4():
+            if triangle_area:
+                return f"\nA = Area = {triangle_area} a.e."
+            else:
+                return""
+
+        def calculate_length_t7():
+            if not triangle_base:
+                return f"\nb = {isoceles_triangle.area} / h = {isoceles_triangle.base} l.e."
+            if not triangle_height:
+                return f"\nh = {isoceles_triangle.area} / b = {isoceles_triangle.height} l.e."
+            else:
+                return ""
+
+        t_1 = "Värden\n\n"
+        
+        t_2 = generate_t2()
+
+        t_3 = generate_t3()
+    
+        t_4 = generate_t4()
+        
+        t_5 = "\n\nFormler""\n\nb = bas""\nh = höjd""\nA = Area = (b * h)/2"\
+        "\nb = Area/h eller h = Area/b""\n\nBeräkning"
+
+        t_6 = f"\nA = ({isoceles_triangle.base} * {isoceles_triangle.height})/2 = {isoceles_triangle.area} a.e."
+
+        t_7 = calculate_length_t7()
+
+        losning = t_1 + t_2 + t_3 + t_4 + t_5 + t_6 + t_7
+
+        return losning
 
     def find_isoceles_triangle_coordinates(isoceles_triangle):
         base = isoceles_triangle.base
@@ -473,6 +536,22 @@ def calculate_isoceles_triangle():
         point_4 = (170, 80 + height)
 
         return point_1, point_2, point_3, point_4        
+
+    def try_inform_user():
+        try:
+            inform_user()
+        except (UnboundLocalError,TypeError):
+            messagebox.showerror(title="Fel",message="Du har matat in en icke-siffra eller otillräckliga mängder information, försök igen")
+            isoceles_triangle_base.set("")
+            isoceles_triangle_height.set("")
+            isoceles_triangle_area.set("")
+            isoceles_triangle_input_window.focus()
+        except (AssertionError,ValueError):
+            messagebox.showerror(title="Fel",message="Triangeln är inte möjlig att konstruera med dina siffror, kolla så att de verkligen stämmer")
+            isoceles_triangle_base.set("")
+            isoceles_triangle_height.set("")
+            isoceles_triangle_area.set("")
+            isoceles_triangle_input_window.focus()
 
     def inform_user():
         isoceles_triangle = create_object()
@@ -551,7 +630,7 @@ def calculate_isoceles_triangle():
         ttk.Label(information_window,text="a.e.").grid(column=3, row=4, sticky="E")
 
         #TODO: bind the enter key to trigger the button
-        ttk.Button(information_window,text="Beräkna",command=inform_user).grid(column=2, row=5)
+        ttk.Button(information_window,text="Beräkna",command=try_inform_user).grid(column=2, row=5)
 
         #Make the GUI nice and roomy
         for child in information_window.winfo_children():
