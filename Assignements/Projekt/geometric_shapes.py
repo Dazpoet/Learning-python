@@ -126,11 +126,11 @@ class Triangle:
         self.area = A
 
         if not b:
-            self.base = self.calculate_base
+            self.base = self.calculate_base()
         if not h:
-            self.height = self.calculate_height
+            self.height = self.calculate_height()
         if not A:
-            self.area = self.calculate_area
+            self.area = self.calculate_area()
     
     def calculate_base(self):
         return 2*self.area/self.height
