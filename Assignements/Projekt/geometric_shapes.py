@@ -65,6 +65,7 @@ class Rectangle:
             self.perimeter = self.calculate_perimeter()
         
         assert None not in [self.length, self.width], "There's a none side in the rectangle object"
+        assert self.length > 0 and self.width > 0 and self.perimeter > 0 and self.area > 0, "attributes of a rectangle cannot be negative"
     
     def calculate_length(self):
         if self.area and self.width:
