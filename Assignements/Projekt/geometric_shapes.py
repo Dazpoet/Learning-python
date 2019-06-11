@@ -11,6 +11,7 @@ import random
 class Circle:
     def __init__(self, r=None, A=None, C=None):
         SCHOOLBOOK_PI = 3.14
+
         self.radius = r
         if r:
             self.diameter = 2*r
@@ -25,6 +26,7 @@ class Circle:
         if not C:
             self.circumference = self.calculate_circumference()
 
+        assert self.radius > 0 and self.diameter > 0 and self.area > 0, "lengths cannot be negative"
         assert self.radius*SCHOOLBOOK_PI**2 <= self.area <= self.radius**2*math.pi, "circle.area improperly defined"
         assert self.diameter*SCHOOLBOOK_PI <= self.circumference <= self.diameter*math.pi, "circle.circumference improperly defined"
 
@@ -131,7 +133,10 @@ class Triangle:
             self.height = self.calculate_height()
         if not A:
             self.area = self.calculate_area()
-    
+
+        assert self.base > 0 and self.height > 0 and self.area > 0, "attributes of a triangle cannot be negative"
+        assert (self.base * self.height)/2 == self.area, "the triangle isn't possible"
+
     def calculate_base(self):
         return 2*self.area/self.height
 
