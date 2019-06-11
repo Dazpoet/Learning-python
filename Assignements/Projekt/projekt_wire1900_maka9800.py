@@ -156,6 +156,24 @@ def calculate_rectangle():
 
         return x2, y2
 
+    def try_inform_user():
+        try:
+            inform_user()
+        except (UnboundLocalError,TypeError):
+            messagebox.showerror(title="Fel",message="Du har matat in en icke-siffra eller otillräckliga mängder information, försök igen")
+            rectangle_length.set("")
+            rectangle_width.set("")
+            rectangle_perimeter.set("")
+            rectangle_area.set("")
+            rectangle_input_window.focus()
+        except (AssertionError,ValueError):
+            messagebox.showerror(title="Fel",message="Rektangeln är inte möjlig att konstruera med dina siffror, kolla så att de verkligen stämmer och är positiva")
+            rectangle_length.set("")
+            rectangle_width.set("")
+            rectangle_perimeter.set("")
+            rectangle_area.set("")
+            rectangle_input_window.focus()
+
     def inform_user():
         rectangle = create_object()
 
@@ -229,7 +247,7 @@ def calculate_rectangle():
         ttk.Label(information_window,text="a.e.").grid(column=3, row=4, sticky="E")
 
         #TODO: bind the enter key to trigger the button
-        ttk.Button(information_window,text="Beräkna",command=inform_user).grid(column=2, row=5)
+        ttk.Button(information_window,text="Beräkna",command=try_inform_user).grid(column=2, row=5)
 
         #Make the GUI nice and roomy
         for child in information_window.winfo_children():
