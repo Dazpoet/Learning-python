@@ -881,6 +881,8 @@ def build_gui():
         else:
             ttk.Button(button_frame, text = message, command = partial(choose_shape, (button))).grid(column = 1, row = (index - 1), sticky = "news")
 
+    ttk.Button(button_frame, text = "Avsluta", command = quit_program).grid(column = 0, row = 99, sticky = "sw")
+    
     text = "I detta program lär du dig om geometriska former\n\n"\
         "Programmet tar fram information om olika geometriska former baserat på information du redan har.\n\n"\
         "Ett exempel är att du kan få reda på en kvadrats omkrets genom att mata in dess area.\n\n"\
@@ -894,6 +896,9 @@ def build_gui():
 
     for child in button_frame.winfo_children():
         child.grid_configure(padx = 20, pady = 10)
+
+def quit_program():
+    root.destroy()
 
 def main():
     build_gui()
