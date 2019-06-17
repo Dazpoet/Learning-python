@@ -69,6 +69,8 @@ class Rectangle:
         for attribute in self.__dict__.values():
             assert attribute != None, "There's a None attribute in the rectangle object"
             assert attribute > 0, "There's an attribute with a negative value in the rectangle object"
+        assert 2*(self.length + self.width) == self.perimeter
+        assert self.length*self.width == self.area
     
     def calculate_length(self):
         if self.area and self.width:
